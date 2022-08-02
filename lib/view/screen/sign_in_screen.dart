@@ -47,7 +47,7 @@ class SignInScreen extends StatelessWidget {
                 bgColor: const Color(0xff92B4EC),
                 label: '로그인',
                 onTap: () {
-                  Get.to('HomeScreen');
+                  Get.toNamed('home');
                 }),
             Padding(
               padding: const EdgeInsets.fromLTRB(55, 0, 55, 40),
