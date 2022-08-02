@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:today_dot/textbutton.dart';
+import 'package:today_dot/view/widget/textfield_widget.dart';
 
-import 'button.dart';
+import 'view/widget/button.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -18,88 +19,40 @@ class LoginScreen extends StatelessWidget {
       body: Container(
         width: double.infinity,
         color: Color(0xFFFFFDF9),
-        child: Column(
+       child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(8, 8, 8, 48),
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 40),
               child: Text('오늘의 마침표.', style: TextStyle(fontSize: 32.0),),
             ),
             Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [ Text('아이디', style: TextStyle(fontSize: 16.0),),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(15.0),
-                        border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          borderSide: BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          borderSide: BorderSide(
-                            width: 0,
-                            color: Color(0xffC4DDFF),
-                          ),
-                        ),
+              padding: const EdgeInsets.all(30.0),
+              child : TextFieldWidget(
+                fieldTitle: '아이디',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30, 0, 30, 45),
+              child : TextFieldWidget(
+                fieldTitle: '비밀번호',
+              ),
+            ),
 
-                        filled: true,
-                        fillColor: Color(0xffC4DDFF),
-                      ),
-                    ),]
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(40, 3, 40, 60),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [ Text('비밀번호', style: TextStyle(fontSize: 16.0),),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(15.0),
-                        border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          borderSide: BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                          borderSide: BorderSide(
-                            width: 0,
-                            color: Color(0xffC4DDFF),
-                          ),
-                        ),
-                        filled: true,
-                        fillColor: Color(0xffC4DDFF),
-                      ),
-                    ),]
-              ),
-            ),
+
             AppButtons(
-                buttonColor: Color(0xff92B4EC),
-                text: '로그인',
-                onTapFunction: (){
-                  // 홈화면 이동
-                  /*  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                  );*/
-                  print('login');
-                }),
+                  buttonColor: Color(0xff92B4EC),
+                  text: '로그인',
+                  onTapFunction: (){
+                    // 홈화면 이동
+                    // print('login');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                  }),
+
             Padding(
-              padding: const EdgeInsets.fromLTRB(55, 7, 55, 40),
+              padding: const EdgeInsets.fromLTRB(55, 0, 55, 40),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [ Text('회원이 아니신가요?',
@@ -108,23 +61,25 @@ class LoginScreen extends StatelessWidget {
                     color: Color(0xff949494),
                   ),
                 ),
-                  TextButtons(
-                    text: '회원가입',
-                    textColor : Colors.black,
-                    onTapFunction: (){
-                      //print('회원가입');
-                      Navigator.push(
+
+                  TextButton(
+                    child: Text('회원가입',style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold),),
+                      style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                    ),
+                    onPressed: (){
+                      print('회원가입');
+                      /*Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => SignUpScreen()),
-                      );
+                      );*/
                     },
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+    ],
+    )
+    ));
   }
 }
