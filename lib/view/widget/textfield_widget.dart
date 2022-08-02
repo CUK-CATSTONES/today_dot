@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
-  String? hintText;
-  String? fieldTitle;
-  int? maxLine;
-  String? suffixButtonText;
-  TextFieldWidget(
-      {Key? key,
-        this.hintText,
-        this.suffixButtonText,
-        this.maxLine,
-        this.fieldTitle})
-      : super(key: key);
+  final String? hintText;
+  final String? fieldTitle;
+  final int? maxLine;
+  final String? suffixButtonText;
+  final TextEditingController? textEditingController;
+  final FormFieldValidator validator;
+  bool isEmailCorrected = true;
+  TextFieldWidget({
+    Key? key,
+    this.hintText,
+    this.suffixButtonText,
+    this.maxLine,
+    this.fieldTitle,
+    this.textEditingController,
+    required this.validator,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class TextFieldWidget extends StatelessWidget {
       children: [
         Text(
           fieldTitle ?? '',
-          style: TextStyle(fontSize: 16.0, color: Colors.black),
+          style: const TextStyle(fontSize: 16.0, color: Colors.black),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -37,7 +42,7 @@ class TextFieldWidget extends StatelessWidget {
                 ),
                 //중복확인하는 로직 필요
                 onPressed: () {
-                  print('dd');
+                  print('중복확인하는 중,,');
                 },
               ),
               hintText: hintText,
@@ -56,12 +61,33 @@ class TextFieldWidget extends StatelessWidget {
                   Radius.circular(5),
                 ),
                 borderSide: BorderSide(
+                  color: Color(0xff92B4EC),
+                  width: 2.0,
+                ),
+              ),
+              focusedErrorBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5),
+                ),
+                borderSide: BorderSide(
+                  color: Color(0xff92B4EC),
+                  width: 2.0,
+                ),
+              ),
+              errorBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5),
+                ),
+                borderSide: BorderSide(
                   color: Color(0x4dC4DDFF),
                 ),
               ),
+              errorStyle: const TextStyle(color: Colors.blue),
             ),
           ),
-        ),],
+        ),
+        const SizedBox(height: 20),
+      ],
     );
   }
 }

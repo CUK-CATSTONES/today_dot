@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:today_dot/diary_container.dart';
+import 'package:today_dot/view/widget/diary_container.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget listview_builder(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -14,22 +14,25 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: ListView.builder(
-        scrollDirection: Axis.vertical,
-        padding: const EdgeInsets.all(25),
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int index) {
-          child: Container(
-            width: 335,
-            height: 75,
-            child: Center(
-              child: Text('글1', style: TextStyle(color: Colors.black),),),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25.0),
-              color: Color(0xffC4DDFF),
-            ),
-          );
-        }
-        ),
+          scrollDirection: Axis.vertical,
+          padding: const EdgeInsets.all(25),
+          itemCount: 10,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              width: 335,
+              height: 75,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25.0),
+                color: Color(0xffC4DDFF),
+              ),
+              child: const Center(
+                child: Text(
+                  '글1',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            );
+          }),
     );
   }
 }

@@ -1,7 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:today_dot/sign_in_screen.dart';
+import 'package:get/get.dart';
+import 'package:today_dot/model/asset/status.dart';
+import 'package:today_dot/view/screen/sign_in_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:today_dot/view/screen/sign_up_screen.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    Status _authStatus;
+    if (user == null) {
+      _authStatus = Status.signOut;
+      print('User is currently signed out!');
+    } else {
+      _authStatus = Status.signIn;
+      print('User is signed in!');
+    }
+  });
   runApp(const MyApp());
 }
 
@@ -10,30 +30,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SignIn',
-      home: Builder(builder: (BuildContext context){
-        return LoginScreen();
-      })
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('오늘의 마침표'),
+    return GetMaterialApp(
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const SignInScreen()),
+        GetPage(name: '/signUp', page: () => const SignUpScreen()),
+      ],
+      theme: ThemeData(
+        inputDecorationTheme: const InputDecorationTheme(
+          border: OutlineInputBorder(),
+        ),
       ),
     );
   }
