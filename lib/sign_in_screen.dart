@@ -37,14 +37,11 @@ class LoginScreen extends StatelessWidget {
                 fieldTitle: '비밀번호',
               ),
             ),
-
-
             AppButtons(
                   buttonColor: Color(0xff92B4EC),
                   text: '로그인',
                   onTapFunction: (){
                     // 홈화면 이동
-                    // print('login');
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HomeScreen()),
