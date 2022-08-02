@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:today_dot/view/widget/button_widget.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
-
-import 'view/widget/button.dart';
-import 'home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -28,24 +27,19 @@ class LoginScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(30.0),
               child : TextFieldWidget(
-                fieldTitle: '아이디',
+                fieldTitle: '아이디', validator: (value) {  },
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 45),
               child : TextFieldWidget(
-                fieldTitle: '비밀번호',
+                fieldTitle: '비밀번호', validator: (value) {  },
               ),
             ),
-            AppButtons(
-                  buttonColor: Color(0xff92B4EC),
-                  text: '로그인',
-                  onTapFunction: (){
-                    // 홈화면 이동
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
+            ButtonWidget(
+                label: '로그인',
+                  onTap: (){
+                    Get.toNamed('/home');
                   }),
 
             Padding(
