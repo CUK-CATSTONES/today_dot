@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
 
 import '../widget/button_widget.dart';
-import '../../home_screen.dart';
+import 'home_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -47,12 +47,7 @@ class SignInScreen extends StatelessWidget {
                 bgColor: const Color(0xff92B4EC),
                 label: '로그인',
                 onTap: () {
-                  // 홈화면 이동
-                  // print('login');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  );
+                  Get.to('HomeScreen');
                 }),
             Padding(
               padding: const EdgeInsets.fromLTRB(55, 0, 55, 40),
@@ -71,7 +66,6 @@ class SignInScreen extends StatelessWidget {
                       padding: EdgeInsets.zero,
                     ),
                     onPressed: () {
-                      print('회원가입');
                       Get.toNamed('/signUp');
                     },
                     child: const Text(
