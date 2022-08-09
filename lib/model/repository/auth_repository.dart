@@ -9,6 +9,8 @@ class AuthRepository {
   late String pwd;
 
   AuthRepository();
+  AuthRepository.id({required id});
+  AuthRepository.idAndpwd({required id, required pwd});
 
   /// 로그인
   ///
@@ -68,5 +70,30 @@ class AuthRepository {
       }
     }
     return Status.success;
+  }
+
+  /// 로그아웃
+  ///
+  Future<Status> signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      return Status.error;
+    }
+    return Status.success;
+  }
+
+  /// email이 중복되는지 확인하기 위해 기존의 로그인되어 있는 계정의 이메일 정보를 확인하는 함수이다.
+  Future<String> checkEmailExist() async {
+    List list = [];
+    try {
+      list = await FirebaseAuth.instance.fetchSignInMethodsForEmail(id);
+    } on FirebaseAuthException catch (e) {
+      return e.code;
+    }
+    if (list.isEmpty) {
+      return 'success';
+    }
+    return 'alreadyExist';
   }
 }

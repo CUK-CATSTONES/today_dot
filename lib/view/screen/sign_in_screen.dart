@@ -1,16 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
-
-import '../widget/button_widget.dart';
-import 'home_screen.dart';
+import 'package:today_dot/view/widget/button_widget.dart';
+import 'package:today_dot/view_model/sign_in_controller.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _signInController = Get.put(SignInController());
+
+    bool _validatedID = false;
+    bool _validatedPWD = false;
+    late TextEditingController userEmail = TextEditingController();
+    late TextEditingController userPassword = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -33,21 +37,45 @@ class SignInScreen extends StatelessWidget {
               padding: const EdgeInsets.all(30.0),
               child: TextFieldWidget(
                 fieldTitle: '아이디',
-                validator: (value) {},
+                hintText: 'ex) hello@gmail.com',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    _validatedID = false;
+                    return '아이디를 입력해주세요';
+                  } else {
+                    _validatedID = true;
+                  }
+                  return null;
+                },
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 45),
               child: TextFieldWidget(
                 fieldTitle: '비밀번호',
-                validator: (value) {},
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    _validatedPWD = false;
+                    return '비밀번호를 입력하세요.';
+                  } else {
+                    _validatedPWD = true;
+                  }
+                  return null;
+                },
               ),
             ),
             ButtonWidget(
                 bgColor: const Color(0xff92B4EC),
                 label: '로그인',
                 onTap: () {
-                  Get.toNamed('home');
+                  if (_validatedID == true && _validatedPWD == true) {
+                    _signInController.signIn(userEmail.text, userPassword.text);
+                    Get.toNamed('home');
+                  } else if (_validatedID == false || _validatedPWD == false) {
+                    Get.snackbar('로그인 불가', '아이디 또는 비밀번호를 다시한번 확인해주세요');
+                  } else {
+                    Get.snackbar('로그인 불가', '로그인에 실패하였습니다.');
+                  }
                 }),
             Padding(
               padding: const EdgeInsets.fromLTRB(55, 0, 55, 40),

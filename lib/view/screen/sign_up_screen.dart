@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:today_dot/view_model/sign_up_controller.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -14,13 +15,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool isDisable = true;
   bool isEmailCorrected = false;
   final _auth = FirebaseAuth.instance;
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   late TextEditingController userEmail = TextEditingController();
   late TextEditingController userPassword = TextEditingController();
   late TextEditingController confirmPassword = TextEditingController();
   late TextEditingController userName = TextEditingController();
+  late final FocusNode _focusNode;
+  bool isSignUp = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // myFocusNode에 포커스 인스턴스 저장.
+    _focusNode = FocusNode();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _signUpController = Get.put(SignUpController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -46,6 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Form(
                     // Form 위젯은 컨테이너처럼 동작하면서, 여러개의 form field를 그룹화하고 적합성을 확인함
                     key: _formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -66,13 +81,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
 
                             /// 정상적으로 이메일을 입력했을 때
+                            _signUpController.checkID();
                             isEmailCorrected = true;
                             print(userEmail.text);
                             return '사용가능한 아이디입니다';
                           },
                           fieldTitle: '아이디',
                           hintText: '이메일을 입력하세요!',
-                          suffixButtonText: '중복확인',
+                          // suffixButtonText: '중복확인',
                         ),
                         TextFieldWidget(
                           textEditingController: userPassword,
@@ -90,7 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFieldWidget(
                           textEditingController: confirmPassword,
                           validator: (val) {
-                            if (val != userPassword.text) {
+                            if (val != userPassword) {
                               return '비밀번호가 일치하지 않아요';
                             }
                             return null;
@@ -116,14 +132,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               InkWell(
                 onTap: () {
                   if (!_formKey.currentState!.validate()) {
-                    // isDisable = true;
-                    // return;
-                    print('--------');
-                    print(userEmail.text);
-                    print(userPassword.text);
-                    print(userName.text);
+                    _formKey.currentState!.save();
                   }
-                  Get.snackbar('회원가입', '완료우');
                 },
                 child: Container(
                   width: double.infinity,
