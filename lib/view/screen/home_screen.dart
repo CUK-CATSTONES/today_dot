@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:today_dot/sign_in_screen.dart';
+import 'package:today_dot/view/screen/setting_screen.dart';
 
 import '../widget/diary_container.dart';
 
@@ -20,13 +21,12 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.settings),
             color: Color(0xff121212),
             onPressed: () {
-              print("Settings");
+              //print("Settings");
               // 설정화면 이동
-              /*
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => SettingScreen()),
-              );*/
+              );
             },
           ),
         ],
