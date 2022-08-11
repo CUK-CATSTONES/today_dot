@@ -43,11 +43,12 @@ class SignInScreen extends StatelessWidget {
                 validator: (value) {},
               ),
             ),
+           // Expanded(child: ElevatedButton(onPressed: ()=>Get.toNamed('/home'), child: Text('로그인'))),
             ButtonWidget(
                 bgColor: const Color(0xff92B4EC),
                 label: '로그인',
                 onTap: () {
-                  Get.toNamed('home');
+                  Get.toNamed('/home');
                 }),
             Padding(
               padding: const EdgeInsets.fromLTRB(55, 0, 55, 40),

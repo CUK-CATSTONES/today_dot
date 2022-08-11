@@ -39,9 +39,11 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/home', page: () => const HomeScreen()),
       ],
       theme: ThemeData(
+        primaryColor: Color(0xff92B4EC),
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(primary:  Color(0xff92B4EC), onSurface:  Color(0xff92B4EC),textStyle: TextStyle(color: Colors.black)))
       ),
     );
   }
