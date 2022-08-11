@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import 'change_name_screen.dart';
+
 class SettingScreen extends StatelessWidget{
   const SettingScreen({Key? key}) : super(key: key);
 
@@ -47,17 +49,17 @@ class SettingScreen extends StatelessWidget{
                 children: [
                   IconButton(
                     onPressed: (){
-                      print('닉네임변경');
+                      Navigator.push(context, MaterialPageRoute(builder:
+                          (context) => ChangeNameScreen()),);
                     },
                     icon: Icon(Icons.edit, size: 30,),
                   ),
                   TextButton(
                       onPressed:  (){
-                        print('닉네임변경');
-                        /*
+                        //print('닉네임변경');
                         Navigator.push(context, MaterialPageRoute(builder:
-                         (context) => EditNameScreen()),);
-                         */
+                         (context) => ChangeNameScreen()),);
+
                       }, child: Text('닉네임변경', style: TextStyle(color: Colors.black, fontSize:22 ),),
                     style: ButtonStyle(
                       overlayColor: MaterialStateProperty.all(Colors.transparent),
