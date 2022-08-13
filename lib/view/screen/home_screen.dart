@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,11 +21,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _changeNameController = Get.put((changeNameController));
-  late String name;
-
-  // late SharedPreferences _prefs;
-  // final changeNameController = SharedPreferencesController();
+  StreamController<String> streamController = StreamController<String>();
+  final _changeNameController =  Get.put(changeNameController());
 
   @override
   Widget build(BuildContext context) {
@@ -76,13 +75,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                     Text(_changeNameController.getString()),
+                      FutureBuilder(
+                          future : _changeNameController.getName(),
+                          builder : (context, snapshot) {
+                            if(snapshot.hasData == false) {
+                              return CircularProgressIndicator();
+                            }
+                            else {
+                              return Text(snapshot.data.toString(), style: TextStyle(fontSize: 27,),);
+                            }
+                          }
+                      ),
+
                   Text('의 마침표',
                       style: TextStyle(
                         fontSize: 27,
                       ),
                       ),
-
                     ],
                   ),
                 ),
@@ -112,7 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context: context,
                                 builder: (context) {
                                   return Dialog(
-// backgroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16),
                                     ),
@@ -130,15 +138,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             padding: const EdgeInsets.fromLTRB(
                                                 20, 10, 5, 10),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text('일기를 삭제할까요?'),
                                                 IconButton(
-                                                  onPressed: () =>
-                                                      Navigator.of(context)
-                                                          .pop(false),
+                                                  onPressed: () => Navigator.of(context).pop(false),
                                                   icon: Icon(
                                                     Icons.close,
                                                     size: 30,

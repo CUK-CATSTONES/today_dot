@@ -20,6 +20,6 @@ class SharedPreferencesImpl implements SharedPreferencesInterface{
 
   @override
   Future writeString(String newName) async{
-    _prefs.setString('username', newName);
+    _prefs.setString('name', newName);
   }
 }
