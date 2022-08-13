@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:today_dot/view/screen/setting_screen.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
 
@@ -30,7 +31,6 @@ class ChangeNameScreen extends StatelessWidget{
          )
        ],
      ),
-
      body: Container(
        width: double.infinity,
        color: Color(0xFFFFFDF9),
@@ -50,7 +50,6 @@ class ChangeNameScreen extends StatelessWidget{
                onTap: () {
                  print("저장");
                }),
-
          ],
        ),
    ),

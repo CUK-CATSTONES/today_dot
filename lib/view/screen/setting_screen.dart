@@ -49,17 +49,13 @@ class SettingScreen extends StatelessWidget{
                 children: [
                   IconButton(
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder:
-                          (context) => ChangeNameScreen()),);
+                      Get.toNamed('/changeName');
                     },
                     icon: Icon(Icons.edit, size: 30,),
                   ),
                   TextButton(
                       onPressed:  (){
-                        //print('닉네임변경');
-                        Navigator.push(context, MaterialPageRoute(builder:
-                         (context) => ChangeNameScreen()),);
-
+                        Get.toNamed('/changeName');
                       }, child: Text('닉네임변경', style: TextStyle(color: Colors.black, fontSize:22 ),),
                     style: ButtonStyle(
                       overlayColor: MaterialStateProperty.all(Colors.transparent),

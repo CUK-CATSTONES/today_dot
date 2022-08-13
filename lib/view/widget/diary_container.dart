@@ -9,7 +9,9 @@ class ContainerWidget extends StatelessWidget{
   final Color? boxColor;
   final String? text;
   final double? fontsize;
+  final String? userName;
   ContainerWidget({Key? key,
+    this.userName,
     this.boxColor,
     this.text,
     this.borderRadius,
