@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/model/asset/status.dart';
+import 'package:today_dot/view/screen/edit_diary_screen.dart';
 import 'package:today_dot/view/screen/home_screen.dart';
 import 'package:today_dot/view/screen/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,7 +37,8 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => const SignInScreen()),
         GetPage(name: '/signUp', page: () => const SignUpScreen()),
-        GetPage(name: '/home', page: () => const HomeScreen()),
+        GetPage(name: '/', page: () => const HomeScreen()),
+        GetPage(name: '/editDiary', page: () => const EditDiaryScreen()),
       ],
       theme: ThemeData(
         inputDecorationTheme: const InputDecorationTheme(

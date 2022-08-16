@@ -10,7 +10,10 @@ class TextFieldWidget extends StatelessWidget {
   final TextEditingController? textEditingController;
   final FormFieldValidator validator;
   final FocusNode? focusNode;
+  final double? borderRadius;
+  final int? maxLength;
   bool isEmailCorrected = true;
+
   TextFieldWidget({
     Key? key,
     this.hintText,
@@ -19,6 +22,8 @@ class TextFieldWidget extends StatelessWidget {
     this.fieldTitle,
     this.textEditingController,
     this.focusNode,
+    this.borderRadius,
+    this.maxLength,
     required this.validator,
   }) : super(key: key);
 
@@ -36,59 +41,56 @@ class TextFieldWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextFormField(
             focusNode: focusNode,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            // autovalidateMode: AutovalidateMode.onUserInteraction,
             autofocus: fieldTitle!.contains('아이디') ? true : false,
-            keyboardType: fieldTitle!.contains('아이디')
-                ? TextInputType.emailAddress
-                : TextInputType.text,
+            // keyboardType: fieldTitle!.contains('아이디')
+            //     ? TextInputType.emailAddress
+            //     : TextInputType.text,
             validator: validator,
             controller: textEditingController,
             maxLines: maxLine ?? 1,
+            maxLength: maxLength,
             obscureText: fieldTitle!.contains('비밀번호') ? true : false,
             decoration: InputDecoration(
-              suffixIcon: TextButton(
-                child: Text(
-                  suffixButtonText ?? '',
-                  style: const TextStyle(
-                    color: Color(0xff6482B4),
-                    fontSize: 16.0,
-                  ),
-                ),
-                //중복확인하는 로직 필요
-                onPressed: () {
-                  // print('중복확인하는 중,,');
-                  // if (textEditingController != '') {
-                  //   _signUpController.checkID();
-                  // } else {
-                  //   print('dd');
-                  // }
-                },
-              ),
+              // suffixIcon: TextButton(
+              //   child: Text(
+              //     suffixButtonText ?? '',
+              //     style: const TextStyle(
+              //       color: Color(0xff6482B4),
+              //       fontSize: 16.0,
+              //     ),
+              //   ),
+              //   //중복확인하는 로직 필요
+              //   onPressed: () async {
+              //     await _signUpController.checkDuplicatedID();
+              //     print('clicked');
+              //   },
+              // ),
               hintText: hintText,
               filled: true,
               fillColor: const Color(0x4dC4DDFF),
-              enabledBorder: const OutlineInputBorder(
+              enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(5),
+                  Radius.circular(borderRadius ?? 5.0),
                 ),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Color(0x4dC4DDFF),
                 ),
               ),
-              focusedBorder: const OutlineInputBorder(
+              focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(5),
+                  Radius.circular(borderRadius ?? 5.0),
                 ),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Color(0xff92B4EC),
                   width: 2.0,
                 ),
               ),
-              focusedErrorBorder: const OutlineInputBorder(
+              focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(5),
+                  Radius.circular(borderRadius ?? 5.0),
                 ),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Color(0xff92B4EC),
                   width: 2.0,
                 ),
@@ -101,7 +103,7 @@ class TextFieldWidget extends StatelessWidget {
                   color: Color(0x4dC4DDFF),
                 ),
               ),
-              errorStyle: const TextStyle(color: Colors.blue),
+              // errorStyle: const TextStyle(color: Colors.blue),
             ),
           ),
         ),

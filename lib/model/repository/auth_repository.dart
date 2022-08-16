@@ -1,12 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:today_dot/model/asset/status.dart';
+import 'package:today_dot/model/repository/user_repository.dart';
 
 /// firebase.Auth와 관련된 메소드를 실행한다.
 
 class AuthRepository {
   final auth = FirebaseAuth.instance;
-  late String id;
-  late String pwd;
+  String id = '';
+  String pwd = '';
 
   AuthRepository();
   AuthRepository.id({required id});
@@ -53,13 +55,18 @@ class AuthRepository {
   /// 이메일 형식에 맞지 않은 이메일을 입력한 경우
   /// 3. error
   /// 위 경우 이외의 경우
-  Future<Status> signUp() async {
+  Future signUp() async {
     try {
-      await auth.createUserWithEmailAndPassword(
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: id,
         password: pwd,
       );
+      print(id.toString());
+      print('pwd: ${pwd.toString()}');
+
+      return userCredential.user?.uid;
     } on FirebaseAuthException catch (e) {
+      print('68 $e');
       switch (e.code) {
         case 'email-already-in-use':
           return Status.emailAlreadyExist;
@@ -69,7 +76,6 @@ class AuthRepository {
           return Status.error;
       }
     }
-    return Status.success;
   }
 
   /// 로그아웃
@@ -87,8 +93,14 @@ class AuthRepository {
   Future<String> checkEmailExist() async {
     List list = [];
     try {
-      list = await FirebaseAuth.instance.fetchSignInMethodsForEmail(id);
+      Future<QuerySnapshot<Map<String, dynamic>>> list = FirebaseFirestore
+          .instance
+          .collection('userData')
+          .where('uid', isEqualTo: auth.currentUser?.uid)
+          .get();
+      // list = await FirebaseAuth.instance.fetchSignInMethodsForEmail(id);
     } on FirebaseAuthException catch (e) {
+      print('auth_repo 90 $e');
       return e.code;
     }
     if (list.isEmpty) {

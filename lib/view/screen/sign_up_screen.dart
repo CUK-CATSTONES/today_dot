@@ -12,16 +12,14 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  bool isDisable = true;
-  bool isEmailCorrected = false;
-  final _auth = FirebaseAuth.instance;
+  final signUpController = Get.put(SignUpController());
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late TextEditingController userEmail = TextEditingController();
   late TextEditingController userPassword = TextEditingController();
   late TextEditingController confirmPassword = TextEditingController();
   late TextEditingController userName = TextEditingController();
-  late final FocusNode _focusNode;
   bool isSignUp = false;
 
   @override
@@ -29,12 +27,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     // TODO: implement initState
     super.initState();
     // myFocusNode에 포커스 인스턴스 저장.
-    _focusNode = FocusNode();
   }
 
   @override
   Widget build(BuildContext context) {
-    final _signUpController = Get.put(SignUpController());
+    bool isDisable = true;
+    bool isEmailCorrected = false;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -65,6 +63,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextFieldWidget(
+                          // suffixButtonText: '중복확인',
                           textEditingController: userEmail,
                           validator: (val) {
                             if (val!.isEmpty) {
@@ -81,14 +80,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
 
                             /// 정상적으로 이메일을 입력했을 때
-                            _signUpController.checkID();
+                            // signUpController.checkDuplicatedID();
                             isEmailCorrected = true;
+                            signUpController.email = val;
                             print(userEmail.text);
-                            return '사용가능한 아이디입니다';
+                            return null;
                           },
                           fieldTitle: '아이디',
                           hintText: '이메일을 입력하세요!',
-                          // suffixButtonText: '중복확인',
                         ),
                         TextFieldWidget(
                           textEditingController: userPassword,
@@ -106,9 +105,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFieldWidget(
                           textEditingController: confirmPassword,
                           validator: (val) {
-                            if (val != userPassword) {
+                            if (val != userPassword.text) {
                               return '비밀번호가 일치하지 않아요';
                             }
+                            signUpController.pwd = val;
                             return null;
                           },
                           fieldTitle: '비밀번호 확인',
@@ -119,7 +119,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             if (val.length < 1) {
                               return '닉네임은 필수사항입니다.';
                             }
-                            print(userName.text);
+                            signUpController.name = val;
+                            print('userName.text:: ${userName.text}');
                             return null;
                           },
                           fieldTitle: '닉네임',
@@ -130,9 +131,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               InkWell(
-                onTap: () {
-                  if (!_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
+                onTap: () async {
+                  if (_formKey.currentState!.validate()) {
+                    print('132');
+                    // _formKey.currentState!.save();
+                    Map<String, dynamic> map = {
+                      'id': signUpController.email,
+                      'pw': signUpController.pwd,
+                      'name': signUpController.name,
+                    };
+                    print('139');
+                    await signUpController.signUp(map);
+                  } else {
+                    Get.snackbar('error', '다시 한번 시도해주세요');
                   }
                 },
                 child: Container(
