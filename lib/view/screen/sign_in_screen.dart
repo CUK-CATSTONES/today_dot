@@ -11,7 +11,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _signInController = Get.put(SignInController());
 
-    bool _validatedID = false;
+    bool _validatedEmail = false;
     bool _validatedPWD = false;
     late TextEditingController userEmail = TextEditingController();
     late TextEditingController userPassword = TextEditingController();
@@ -36,15 +36,17 @@ class SignInScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(30.0),
               child: TextFieldWidget(
+                controller: userEmail,
                 fieldTitle: '아이디',
                 hintText: 'ex) hello@gmail.com',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    _validatedID = false;
+                    _validatedEmail = false;
                     return '아이디를 입력해주세요';
                   } else {
-                    _validatedID = true;
+                    _validatedEmail = true;
                   }
+                  _signInController.email = value;
                   return null;
                 },
               ),
@@ -52,14 +54,15 @@ class SignInScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 45),
               child: TextFieldWidget(
+                controller: userPassword,
                 fieldTitle: '비밀번호',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     _validatedPWD = false;
                     return '비밀번호를 입력하세요.';
-                  } else {
-                    _validatedPWD = true;
                   }
+                  _validatedPWD = true;
+                  _signInController.pwd = value;
                   return null;
                 },
               ),
@@ -68,10 +71,11 @@ class SignInScreen extends StatelessWidget {
                 bgColor: const Color(0xff92B4EC),
                 label: '로그인',
                 onTap: () {
-                  if (_validatedID == true && _validatedPWD == true) {
+                  if (_validatedEmail && _validatedPWD) {
                     _signInController.signIn(userEmail.text, userPassword.text);
                     Get.toNamed('home');
-                  } else if (_validatedID == false || _validatedPWD == false) {
+                  } else if (_validatedEmail == false ||
+                      _validatedPWD == false) {
                     Get.snackbar('로그인 불가', '아이디 또는 비밀번호를 다시한번 확인해주세요');
                   } else {
                     Get.snackbar('로그인 불가', '로그인에 실패하였습니다.');

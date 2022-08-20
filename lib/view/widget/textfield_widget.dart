@@ -7,7 +7,7 @@ class TextFieldWidget extends StatelessWidget {
   final String? fieldTitle;
   final int? maxLine;
   final String? suffixButtonText;
-  final TextEditingController? textEditingController;
+  final TextEditingController? controller;
   final FormFieldValidator validator;
   final FocusNode? focusNode;
   final double? borderRadius;
@@ -20,7 +20,7 @@ class TextFieldWidget extends StatelessWidget {
     this.suffixButtonText,
     this.maxLine,
     this.fieldTitle,
-    this.textEditingController,
+    this.controller,
     this.focusNode,
     this.borderRadius,
     this.maxLength,
@@ -47,7 +47,7 @@ class TextFieldWidget extends StatelessWidget {
             //     ? TextInputType.emailAddress
             //     : TextInputType.text,
             validator: validator,
-            controller: textEditingController,
+            controller: controller,
             maxLines: maxLine ?? 1,
             maxLength: maxLength,
             obscureText: fieldTitle!.contains('비밀번호') ? true : false,

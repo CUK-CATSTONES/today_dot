@@ -16,6 +16,10 @@ enum Status {
   /// 잘못된 비밀번호를 입력한 상태이다.
   wrongPassword,
 
+  /// related w/ SignUp
+  /// 인증 이메일 발송시, 이미 인증된 상태이다.
+  alreadyVerified,
+
   /// related w/ SignIn, SignUp
   /// 위 error 이외의 상태이다.
   error,
@@ -25,7 +29,11 @@ enum Status {
   success,
 
   /// 로그인 상태
+  /// 이메일 인증까지 완료된 상태이다.
   signIn,
+
+  /// 이메일 인증이 되지 않은 상태이다.
+  notEmailVerified,
 
   /// 로그아웃된 상태
   signOut

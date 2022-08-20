@@ -1,18 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:today_dot/model/VO/user_vo.dart';
 import 'package:today_dot/model/asset/status.dart';
 import 'package:today_dot/model/repository/user_repository.dart';
 
 class UserController extends GetxController {
-  UserRepository userRepository = UserRepository();
-  final uid = FirebaseAuth.instance.currentUser?.uid;
+  static final UserController _userController = UserController._internal();
+  factory UserController() => _userController;
+  UserController._internal();
+
+  late UserVO? user;
 
   Future addUserInfoToDB(Map<String, dynamic> map) async {
+    UserRepository userRepository = UserRepository();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     userRepository.addUserInfoUID(map);
-    userRepository.addUserInfo().then((value) {
+    userRepository.addUserInfo(map['email'], map['name']).then((value) {
+      print('15: $value');
       switch (value) {
         case Status.error:
-          print('회원가입 에러님;;;');
+          print('회원가입 에러남;;;');
           break;
         case Status.success:
           print('회원가입 성공임');
@@ -22,8 +29,10 @@ class UserController extends GetxController {
   }
 
   Future readUserInfoToDB() async {
+    UserRepository userRepository = UserRepository();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid != null) {
-      userRepository.readUserInfo(uid!).then((value) {
+      userRepository.readUserInfo(uid).then((value) {
         switch (value) {
           case Status.error:
             print('user controller 29');
@@ -34,7 +43,9 @@ class UserController extends GetxController {
             Get.offAllNamed('/');
             break;
           case Status.success:
-            print('user controller 37');
+            print('user controller 42');
+            user = userRepository.user;
+            print('user controller 44');
             Get.offAllNamed('/home');
             break;
         }

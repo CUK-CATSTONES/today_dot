@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
@@ -16,23 +17,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  late TextEditingController userEmail = TextEditingController();
-  late TextEditingController userPassword = TextEditingController();
-  late TextEditingController confirmPassword = TextEditingController();
-  late TextEditingController userName = TextEditingController();
+  TextEditingController userEmail = TextEditingController();
+  TextEditingController userPassword = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
+  TextEditingController userName = TextEditingController();
   bool isSignUp = false;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // myFocusNode에 포커스 인스턴스 저장.
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // myFocusNode에 포커스 인스턴스 저장.
+  // }
 
   @override
   Widget build(BuildContext context) {
-    bool isDisable = true;
-    bool isEmailCorrected = false;
+    bool isEmailCorrect = false;
+    bool isPWCorrect = false;
+    bool isNameCorrect = false;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -59,43 +60,73 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     // Form 위젯은 컨테이너처럼 동작하면서, 여러개의 form field를 그룹화하고 적합성을 확인함
                     key: _formKey,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    child: ListView(
+                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextFieldWidget(
-                          // suffixButtonText: '중복확인',
-                          textEditingController: userEmail,
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return '이메일을 입력해주세요';
-                            } else if (!val.contains('@')) {
-                              isEmailCorrected = false;
-                              return '이메일 형식이 맞지 않습니다';
-                            }
-                            if (!RegExp(
-                                    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-                                .hasMatch(val)) {
-                              isEmailCorrected = false;
-                              return '잘못된 이메일 형식입니다.';
-                            }
+                        SizedBox(height: 50),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFieldWidget(
+                                // suffixButtonText: '중복확인',
+                                controller: userEmail,
+                                validator: (val) {
+                                  signUpController.email = '';
+                                  if (val!.isEmpty) {
+                                    isEmailCorrect = false;
+                                    return '이메일을 입력해주세요';
+                                  }
+                                  // else if (!val.contains(RegExp(r'[@]'))) {
+                                  //   isEmailVerified = false;
+                                  //   return '이메일 형식이 맞지 않습니다';
+                                  // }
 
-                            /// 정상적으로 이메일을 입력했을 때
-                            // signUpController.checkDuplicatedID();
-                            isEmailCorrected = true;
-                            signUpController.email = val;
-                            print(userEmail.text);
-                            return null;
-                          },
-                          fieldTitle: '아이디',
-                          hintText: '이메일을 입력하세요!',
+                                  /// 정상적으로 이메일을 입력했을 때
+                                  // signUpController.checkDuplicatedID();
+                                  isEmailCorrect = true;
+                                  signUpController.email =
+                                      val.trim() + '@gmail.com';
+                                  print(userEmail.text);
+                                  return null;
+                                },
+                                fieldTitle: '아이디',
+                                hintText: '이메일을 입력하세요!',
+                              ),
+                            ),
+                            const SizedBox(width: 5.0),
+                            const Text(
+                              '@gmail.com',
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                          ],
                         ),
+                        // SizedBox(
+                        //   width: double.infinity,
+                        //   height: 50.0,
+                        //   child: CupertinoButton(
+                        //     padding: const EdgeInsets.all(0),
+                        //     onPressed: () async {
+                        //       print('이메일 인증 버튼 클릭');
+                        //       await signUpController.sendEmailVerification();
+                        //     },
+                        //     color: const Color(0xffD6E5FA),
+                        //     child: const Text(
+                        //       "이메일 인증",
+                        //       style: TextStyle(color: Colors.black),
+                        //     ),
+                        //   ),
+                        // ),
+                        const SizedBox(height: 20),
                         TextFieldWidget(
-                          textEditingController: userPassword,
+                          controller: userPassword,
                           validator: (val) {
+                            signUpController.pwd = '';
                             if (val!.isEmpty || val.length < 6) {
+                              isPWCorrect = false;
                               return '6자 이상 입력해주세요!';
                             }
-
+                            signUpController.pwd = val;
+                            isPWCorrect = true;
                             print(userPassword.text);
                             return null;
                           },
@@ -103,24 +134,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           hintText: '6자 이상 입력해주세요:)',
                         ),
                         TextFieldWidget(
-                          textEditingController: confirmPassword,
+                          controller: confirmPassword,
                           validator: (val) {
                             if (val != userPassword.text) {
+                              isPWCorrect = false;
                               return '비밀번호가 일치하지 않아요';
                             }
-                            signUpController.pwd = val;
+                            // signUpController.pwd = val;
+                            isPWCorrect = true;
                             return null;
                           },
                           fieldTitle: '비밀번호 확인',
                         ),
                         TextFieldWidget(
-                          textEditingController: userName,
+                          controller: userName,
                           validator: (val) {
+                            signUpController.name = '';
                             if (val.length < 1) {
+                              isNameCorrect = false;
                               return '닉네임은 필수사항입니다.';
                             }
-                            signUpController.name = val;
-                            print('userName.text:: ${userName.text}');
+                            signUpController.name = val.trim();
+                            isNameCorrect = true;
                             return null;
                           },
                           fieldTitle: '닉네임',
@@ -132,11 +167,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               InkWell(
                 onTap: () async {
-                  if (_formKey.currentState!.validate()) {
+                  if (_formKey.currentState != null ||
+                      (isEmailCorrect == true &&
+                          isPWCorrect == true &&
+                          isNameCorrect == true)) {
                     print('132');
-                    // _formKey.currentState!.save();
                     Map<String, dynamic> map = {
-                      'id': signUpController.email,
+                      'email': signUpController.email,
                       'pw': signUpController.pwd,
                       'name': signUpController.name,
                     };

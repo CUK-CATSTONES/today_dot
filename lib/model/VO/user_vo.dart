@@ -1,24 +1,24 @@
 class UserVO {
   String uid = '';
-  String id = '';
+  String email = '';
   String name = '';
 
   UserVO({
     required this.uid,
-    required this.id,
+    required this.email,
     required this.name,
   });
 
   UserVO.fromJson(Map<String, dynamic> json)
       : uid = json['uid'],
-        id = json['id'],
+        email = json['email'],
         name = json['name'];
 
-  Map<String, dynamic> toJson() => {'uid': uid, 'id': id, 'name': name};
+  Map<String, dynamic> toJson() => {'uid': uid, 'email': email, 'name': name};
 
   UserVO.fromMap(Map<String, dynamic> user)
       : uid = user['uid'],
-        id = user['id'],
+        email = user['email'],
         name = user['name'];
 
   // factory UserVO.fromFirestore(
@@ -36,13 +36,13 @@ class UserVO {
   Map<String, dynamic> toFirestore() {
     return {
       if (uid != null) "id": uid,
-      if (id != null) "id": id,
+      if (email != null) "email": email,
       if (name != null) "name": name,
     };
   }
 
   @override
   String toString() {
-    return '{uid:$uid, id:$id, name:$name}';
+    return '{uid:$uid, email:$email, name:$name}';
   }
 }

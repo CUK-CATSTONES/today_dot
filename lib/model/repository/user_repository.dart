@@ -4,23 +4,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:today_dot/model/asset/status.dart';
 
 class UserRepository {
-  late UserVO user;
+  static final UserRepository _userRepository = UserRepository._internal();
+  factory UserRepository() => _userRepository;
+
+  UserRepository._internal();
+
+  UserVO? user;
   String collection = 'user';
 
   /// 회원가입된 정보에 uid를 추가해서 firestore에 저장한다.
   void addUserInfoUID(Map<String, dynamic> map) async {
     map.addAll({'uid': FirebaseAuth.instance.currentUser!.uid});
+    user = UserVO.fromMap(map);
   }
+  /*
+  Firestore.instance.collection(colName).add({
+      fnName: name,
+      fnDescription: description,
+      fnDatetime: Timestamp.now(),
+    });
+    */
 
   /// user 정보 생성
-  Future addUserInfo() async {
+  Future addUserInfo(String userEmail, String userName) async {
     try {
-      Map<String, dynamic>? map = user.toJson();
+      Map<String, dynamic>? map = user?.toJson();
       CollectionReference userData =
           FirebaseFirestore.instance.collection(collection);
-      await userData.doc(user.uid).set(map);
+      await userData.add({'email': userEmail, 'name': userName});
     } catch (e) {
-      print(e);
+      print('35: $e');
       return Status.error;
     }
     return Status.success;

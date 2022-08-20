@@ -1,18 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:today_dot/model/asset/status.dart';
-import 'package:today_dot/model/repository/user_repository.dart';
 
 /// firebase.Auth와 관련된 메소드를 실행한다.
 
 class AuthRepository {
   final auth = FirebaseAuth.instance;
-  String id = '';
-  String pwd = '';
+  late String email;
+  late String pwd;
 
   AuthRepository();
-  AuthRepository.id({required id});
-  AuthRepository.idAndpwd({required id, required pwd});
+  AuthRepository.email({required email});
+  AuthRepository.emailAndpwd({required email, required pwd});
 
   /// 로그인
   ///
@@ -28,7 +27,7 @@ class AuthRepository {
   Future<Status> signIn() async {
     try {
       await auth.signInWithEmailAndPassword(
-        email: id,
+        email: email,
         password: pwd,
       );
     } on FirebaseAuthException catch (e) {
@@ -55,27 +54,30 @@ class AuthRepository {
   /// 이메일 형식에 맞지 않은 이메일을 입력한 경우
   /// 3. error
   /// 위 경우 이외의 경우
-  Future signUp() async {
+  static Future<Status> signUp(String email, String pwd) async {
     try {
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
-        email: id,
+      print('60');
+
+      /// email과 pwd 등의 user 정보를 firestore에 저장한다.
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
         password: pwd,
       );
-      print(id.toString());
-      print('pwd: ${pwd.toString()}');
-
-      return userCredential.user?.uid;
+      print('65 email: ${email.toString()}');
+      print('66 pwd: ${pwd.toString()}');
     } on FirebaseAuthException catch (e) {
-      print('68 $e');
+      print('68 result: $e');
       switch (e.code) {
         case 'email-already-in-use':
           return Status.emailAlreadyExist;
         case 'invalid-email':
+          print('73 invalid email');
           return Status.invalidEmail;
         default:
           return Status.error;
       }
     }
+    return Status.success;
   }
 
   /// 로그아웃
@@ -107,5 +109,19 @@ class AuthRepository {
       return 'success';
     }
     return 'alreadyExist';
+  }
+
+  Future<Status> sendEmailVerification() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null && !user.emailVerified) {
+      try {
+        user.sendEmailVerification();
+      } catch (e) {
+        return Status.error;
+      }
+      return Status.success;
+    } else {
+      return Status.alreadyVerified;
+    }
   }
 }
