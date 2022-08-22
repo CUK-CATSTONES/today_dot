@@ -23,12 +23,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController userName = TextEditingController();
   bool isSignUp = false;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // myFocusNode에 포커스 인스턴스 저장.
-  // }
-
   @override
   Widget build(BuildContext context) {
     bool isEmailCorrect = false;

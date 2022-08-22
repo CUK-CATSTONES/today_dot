@@ -4,11 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:today_dot/model/asset/status.dart';
 
 class UserRepository {
-  // static final UserRepository _userRepository = UserRepository._internal();
-  // factory UserRepository() => _userRepository;
-
-  // UserRepository._internal();
-
   UserVO? user;
   String collection = 'user';
 

@@ -5,10 +5,6 @@ import 'package:today_dot/model/asset/status.dart';
 import 'package:today_dot/model/repository/user_repository.dart';
 
 class UserController extends GetxController {
-  // static final UserController _userController = UserController._internal();
-  // factory UserController() => _userController;
-  // UserController._internal();
-
   late UserVO? user;
 
   Future addUserInfoToDB(Map<String, dynamic> map) async {

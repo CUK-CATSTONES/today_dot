@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view/widget/button_widget.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
+import 'package:today_dot/view_model/edit_diary_controller.dart';
 
 class EditDiaryScreen extends StatefulWidget {
   const EditDiaryScreen({Key? key}) : super(key: key);
@@ -23,13 +24,7 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
 
     bool isVisible = false;
     bool isClicked = false;
-    String _currentEmoji = 'images/angry_emoji.png';
-    // String current(String value) {
-    //   setState(() {
-    //     _currentEmoji = value;
-    //   });
-    //   return
-    // }
+    String _currentEmoji = 'images/sad_emoji.png';
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -50,7 +45,6 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
           color: const Color(0xFFFFFDF9),
           child: Align(
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 const Text('오늘 하루 어땠나요?', style: TextStyle(fontSize: 28.0)),
                 Padding(
@@ -73,7 +67,7 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                             ),
                             const SizedBox(width: 10.0),
                             Image.asset(
-                              EmojiList[0],
+                              _currentEmoji,
                               width: 40.0,
                               height: 40.0,
                             ),
@@ -88,7 +82,10 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                               onTap: () {
                                 print('clicked');
                                 print(EmojiList[index]);
-                                _currentEmoji = EmojiList[index];
+                                setState(() {
+                                  _currentEmoji = EmojiList[index];
+                                  print('_currentEmoji: $_currentEmoji');
+                                });
                               },
                               child: Image.asset(EmojiList[index],
                                   width: 40, height: 40),

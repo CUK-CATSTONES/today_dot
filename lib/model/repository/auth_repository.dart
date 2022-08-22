@@ -24,13 +24,14 @@ class AuthRepository {
   /// 등록한 비밀번호와 다른 비밀번호를 입력한 경우
   /// 4. error
   /// 위 경우 이외의 경우
-  Future<Status> signIn() async {
+  static Future<Status> signIn(String email, String pwd) async {
     try {
-      await auth.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: pwd,
       );
     } on FirebaseAuthException catch (e) {
+      print('firebase exception: ${e.toString()}');
       switch (e.code) {
         case 'invalid-email':
           return Status.invalidEmail;
@@ -42,7 +43,7 @@ class AuthRepository {
           return Status.error;
       }
     }
-    return Status.success;
+    return Status.signIn;
   }
 
   /// 회원가입

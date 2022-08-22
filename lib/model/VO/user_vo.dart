@@ -21,18 +21,6 @@ class UserVO {
         email = user['email'],
         name = user['name'];
 
-  // factory UserVO.fromFirestore(
-  //   DocumentSnapshot<Map<String, dynamic>> snapshot,
-  //   SnapshotOptions? options,
-  // ) {
-  //   final data = snapshot.data();
-  //   return UserVO(
-  //     id: data?['id'],
-  //     uid: data?['uid'],
-  //     name: data?['name'],
-  //   );
-  // }
-
   Map<String, dynamic> toFirestore() {
     return {
       if (uid != null) "id": uid,

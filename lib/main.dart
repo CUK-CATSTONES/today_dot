@@ -33,11 +33,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: '/',
+      initialRoute: '/editDiary',
       getPages: [
         GetPage(name: '/', page: () => const SignInScreen()),
         GetPage(name: '/signUp', page: () => const SignUpScreen()),
-        GetPage(name: '/', page: () => const HomeScreen()),
+        GetPage(name: '/home', page: () => const HomeScreen()),
         GetPage(name: '/editDiary', page: () => const EditDiaryScreen()),
       ],
       theme: ThemeData(
