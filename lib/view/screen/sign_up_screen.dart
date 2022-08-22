@@ -50,7 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextFieldWidget(
-                          textEditingController: userEmail,
+                          controller: userEmail,
                           validator: (val) {
                             if (val!.isEmpty) {
                               return '이메일을 입력해주세요';
@@ -75,7 +75,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           suffixButtonText: '중복확인',
                         ),
                         TextFieldWidget(
-                          textEditingController: userPassword,
+                          controller: userPassword,
                           validator: (val) {
                             if (val!.isEmpty || val.length < 6) {
                               return '6자 이상 입력해주세요!';
@@ -88,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           hintText: '6자 이상 입력해주세요:)',
                         ),
                         TextFieldWidget(
-                          textEditingController: confirmPassword,
+                          controller: confirmPassword,
                           validator: (val) {
                             if (val != userPassword.text) {
                               return '비밀번호가 일치하지 않아요';
@@ -98,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           fieldTitle: '비밀번호 확인',
                         ),
                         TextFieldWidget(
-                          textEditingController: userName,
+                          controller: userName,
                           validator: (val) {
                             if (val.length < 1) {
                               return '닉네임은 필수사항입니다.';

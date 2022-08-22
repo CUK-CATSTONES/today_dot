@@ -14,7 +14,7 @@ class SharedPreferencesImpl implements SharedPreferencesInterface{
 
   @override
   Future<String> readString(String name) async{
-    String? username = await _prefs.getString(name) ?? '닉네임';
+    String? username = await _prefs.getString(name) ?? '게스트';
     return username;
   }
 

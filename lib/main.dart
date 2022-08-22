@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/model/asset/status.dart';
 import 'package:today_dot/view/screen/change_name_screen.dart';
+import 'package:today_dot/view/screen/edit_diary_screen.dart';
 import 'package:today_dot/view/screen/home_screen.dart';
 import 'package:today_dot/view/screen/setting_screen.dart';
 import 'package:today_dot/view/screen/sign_in_screen.dart';
@@ -34,13 +35,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: '/',
+      initialRoute: '/editDiary',
       getPages: [
         GetPage(name: '/', page: () => const SignInScreen()),
         GetPage(name: '/signUp', page: () => const SignUpScreen()),
         GetPage(name: '/home', page: () => const HomeScreen()),
         GetPage(name: '/setting', page: () => const SettingScreen()),
         GetPage(name: '/changeName', page: () => const ChangeNameScreen()),
+        GetPage(name: '/editDiary', page: () => const EditDiaryScreen()),
 
       ],
       theme: ThemeData(

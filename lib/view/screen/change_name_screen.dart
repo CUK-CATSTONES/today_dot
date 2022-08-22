@@ -47,7 +47,7 @@ class _ChangeNameScreenState extends State<ChangeNameScreen>{
             Padding(
               padding: EdgeInsets.fromLTRB(20,85,20,240),
               child: TextFieldWidget(
-                textEditingController: userName,
+                controller: userName,
                 fieldTitle: '변경 할 닉네임',
                 validator: (val) {
                 },
@@ -60,6 +60,12 @@ class _ChangeNameScreenState extends State<ChangeNameScreen>{
                   FutureBuilder(
                       future : _changeNameController.setName(userName.text),
                       builder : (context, snapshot) {
+                        /*
+                        // ???
+                        if(userName.text == 'r'){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('닉네임에 글자를 입력해주세요'), duration: Duration(seconds: 5),),);
+                        }*/
                         if(snapshot.hasData == false) {
                           return CircularProgressIndicator();
                         }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: const Color(0xffffffff),
           onPressed: () {
             print("add diary");
+            Get.toNamed('/editDiary');
           },
           child: Icon(
             Icons.add,
@@ -220,11 +222,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: 335,
                                 height: 100,
                                 child: Center(
-                                  child: Text(
-                                    '글1',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
+                                  // 받은 내용
+
+
+                                  child: Text('글1', style: TextStyle(color: Colors.black),),),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(25.0),
                                   color: Color(0x4dC4DDFF),

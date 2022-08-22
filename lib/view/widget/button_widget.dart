@@ -19,7 +19,7 @@ class ButtonWidget extends StatelessWidget {
         width: 300,
         height: 42,
         decoration: BoxDecoration(
-            color: bgColor,
+            color: bgColor ?? const Color(0xb392B4EC),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               width: 1.0,
