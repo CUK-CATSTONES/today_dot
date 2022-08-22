@@ -7,13 +7,17 @@ class ContainerWidget extends StatelessWidget{
   final BoxShadow? boxShadow;
   final double? borderRadius;
   final Color? boxColor;
-  final Text? text;
+  final String? text;
+  final double? fontsize;
+  final String? userName;
   ContainerWidget({Key? key,
+    this.userName,
     this.boxColor,
     this.text,
     this.borderRadius,
     this.onTapFunction,
     this.boxShadow,
+    this.fontsize,
   }) : super(key: key);
 
   @override
@@ -23,13 +27,21 @@ class ContainerWidget extends StatelessWidget{
       child: Center(
         child: Container(
           width : 335,
-          height: 75,
+          height: 60,
           alignment: Alignment.center,
           decoration: BoxDecoration(
+            color: Color(0xffFFFFFF),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0x40000000),
+                spreadRadius: 0,
+                blurRadius: 4,
+                offset: Offset(0,4),
+              ),
+            ],
               borderRadius: BorderRadius.circular(borderRadius!),
           ),
-          // BorderRadius: const BorderRadius.all(Radius.circular(25.0)),
-
+          child: Text(text!,style: TextStyle(fontSize: fontsize),),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view/widget/button_widget.dart';
@@ -21,11 +22,19 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
       'images/happy_emoji.png',
       'images/sad_emoji.png',
     ];
-
+    final firestore = FirebaseFirestore.instance;
     bool isVisible = false;
     bool isClicked = false;
-    String _currentEmoji = 'images/sad_emoji.png';
-
+    String _currentEmoji = 'images/angry_emoji.png';
+    // String current(String value) {
+    //   setState(() {
+    //     _currentEmoji = value;
+    //   });
+    //   return
+    // }
+    TextEditingController content = TextEditingController();
+    EditDiaryController editcontroller = EditDiaryController();
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -45,6 +54,7 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
           color: const Color(0xFFFFFDF9),
           child: Align(
             child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 const Text('오늘 하루 어땠나요?', style: TextStyle(fontSize: 28.0)),
                 Padding(
@@ -98,16 +108,34 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: TextFieldWidget(
-                    validator: (value) {},
-                    fieldTitle: '',
-                    hintText: '100자 이내로 작성해주세요 :)',
-                    maxLine: 10,
-                    maxLength: 100,
-                    borderRadius: 15.0,
+                  child: Form(
+                    key: _formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: TextFieldWidget(
+                      controller: content,
+                      validator: (value) {
+                        editcontroller.content = value;
+                        print('109 : ${content.text}');
+                      },
+                      fieldTitle: '',
+                      hintText: '100자 이내로 작성해주세요 :)',
+                      maxLine: 10,
+                      maxLength: 100,
+                      borderRadius: 15.0,
+                    ),
                   ),
                 ),
-                ButtonWidget(label: '저장하기', onTap: () => print('저장 버튼 클릭')),
+                ButtonWidget(
+                    label: '저장하기',
+                    onTap: () {
+                      print('저장 버튼 클릭');
+                      Map<String, dynamic> map = {
+                        'emoji': 'images/angry_emoji.png',
+                        'content': editcontroller.content,
+                      };
+                      print(map);
+                      editcontroller.addDiaryToDB(map);
+                    }),
               ],
             ),
           ),
