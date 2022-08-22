@@ -38,7 +38,7 @@ class DiaryRepository {
     return Status.success;
   }
 
-  Future readDiary(String uid) async{
+  Future readDiary(String date) async{
 
   }
 
