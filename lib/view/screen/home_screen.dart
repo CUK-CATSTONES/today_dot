@@ -4,17 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:today_dot/view/widget/diary_container.dart';
+import 'package:today_dot/view/widget/diary_container_widget.dart';
+import 'package:today_dot/view_model/edit_diary_controller.dart';
 import 'package:today_dot/view_model/sign_out_controller.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:today_dot/model/interface/shared_preference_interface.dart';
-import 'package:today_dot/sign_in_screen.dart';
-import 'package:today_dot/view/screen/setting_screen.dart';
 
-import '../../model/repository/impl/shared_preferences_impl.dart';
 import '../../view_model/change_name_controller.dart';
-import '../widget/diary_container.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -49,16 +44,16 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: const Color(0xffffffff),
         onPressed: () {
           print("add diary");
-          Get.toNamed('/editDiary');
+          Get.offAllNamed('/editDiary');
         },
         child: const Icon(
           Icons.add,
           color: Color(0xff92B4EC),
         ),
       ),
-      body: Container(
-        color: const Color(0xFFFFFDF9),
-        child: Card(
+      body: Center(
+        child: Container(
+          color: const Color(0xFFFFFDF9),
           child: Column(
             children: [
               Container(
@@ -106,156 +101,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.all(15),
               ),
               Expanded(
-                child: FutureBuilder(builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        padding: const EdgeInsets.all(25),
-                        itemCount: 10,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Dismissible(
-                            key: UniqueKey(),
-                            background: Container(
-                              alignment: Alignment.centerRight,
-                              color: Colors.red,
-                              child: const Icon(
-                                Icons.delete,
-                                size: 40.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                            direction: DismissDirection.endToStart,
-                            confirmDismiss: (direction) {
-                              return showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: Container(
-                                        height: 120,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          color: Colors.white,
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      20, 10, 5, 10),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  const Text('일기를 삭제할까요?'),
-                                                  IconButton(
-                                                    onPressed: () =>
-                                                        Navigator.of(context)
-                                                            .pop(false),
-                                                    icon: const Icon(
-                                                      Icons.close,
-                                                      size: 30,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.of(context)
-                                                          .pop(false),
-                                                  child: const Text('취소',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xff888585))),
-                                                ),
-                                                ElevatedButton(
-                                                  onPressed: () =>
-                                                      Navigator.of(context)
-                                                          .pop(true),
-                                                  child: const Text(
-                                                    '확인',
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-// title: const Text('일기를 삭제할까요?'),
-// actions: [
-//   TextButton(
-//     onPressed: () {
-//       Navigator.of(context).pop(false);
-//     },
-//     child: const Text('취소'),
-//
-//   ),
-//   TextButton(
-//     onPressed: () {
-//       Navigator.of(context).pop(true);
-//     },
-//     child: const Text('확인'),
-//
-//   ),
-// ],
-                                    );
-                                  });
-                            },
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 15,
-                                    ),
-                                    const Text(
-                                      '2022.08.02',
-                                      textAlign: TextAlign.left,
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 0, 5, 30),
-                                    ),
-                                    Image.asset("images/happy_emoji.png",
-                                        width: 40, height: 40),
-                                  ],
-                                ),
-                                Container(
-                                  width: 335,
-                                  height: 100,
-                                  child: Center(
-                                    child: Text(
-                                      '글1',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25.0),
-                                    color: const Color(0x4dC4DDFF),
-                                  ),
-                                ),
-                                Container(
-                                  height: 20,
-                                ),
-                              ],
-                            ),
-                          );
-                        });
-                  }
-                  return Container();
-                }),
+                child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('diary')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      List<DiaryContainerWidget> diaryContainers = [];
+                      if (snapshot.hasData) {
+                        // print(
+                        //     '_diaryController.docIDs.length: ${_diaryController.docIDs.length}');
+                        final diaries = snapshot.data!.docs;
+                        for (var diary in diaries) {
+                          final diaryDate = diary.get('date');
+                          final diaryEmoji = diary.get('emoji');
+                          final diaryContent = diary.get('content');
+                          final diaryContainer = DiaryContainerWidget(
+                              date: diaryDate,
+                              content: diaryContent,
+                              emoji: diaryEmoji);
+                          diaryContainers.add(diaryContainer);
+                        }
+                        return ListView(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 20.0),
+                          children: diaryContainers,
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Text('error...');
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    }),
               ),
             ],
           ),

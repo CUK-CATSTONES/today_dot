@@ -17,12 +17,12 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    Status _authStatus;
+    Status authStatus;
     if (user == null) {
-      _authStatus = Status.signOut;
+      authStatus = Status.signOut;
       print('User is currently signed out!');
     } else {
-      _authStatus = Status.signIn;
+      authStatus = Status.signIn;
       print('User is signed in!');
     }
   });
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: '/editDiary',
+      initialRoute: '/home',
       getPages: [
         GetPage(name: '/', page: () => const SignInScreen()),
         GetPage(name: '/signUp', page: () => const SignUpScreen()),
