@@ -39,7 +39,6 @@ class UserController extends GetxController {
             Get.offAllNamed('/');
             break;
           case Status.success:
-            print('user controller 42');
             user = userRepository.user;
             print('user controller 44');
             Get.offAllNamed('/home');

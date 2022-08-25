@@ -4,10 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:today_dot/view/widget/diary_container.dart';
-import 'package:today_dot/view/widget/diary_container_widget.dart';
+import 'package:today_dot/view/screen/read_diary_component.dart';
 import 'package:today_dot/view_model/edit_diary_controller.dart';
 import 'package:today_dot/view_model/sign_out_controller.dart';
 import 'package:get/get.dart';
+import 'package:today_dot/view_model/user_controller.dart';
 
 import '../../view_model/change_name_controller.dart';
 
@@ -19,7 +20,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  StreamController<String> streamController = StreamController<String>();
   final _changeNameController = Get.put(changeNameController());
 
   @override
@@ -80,10 +80,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (snapshot.hasData == false) {
                             return const CircularProgressIndicator();
                           } else {
+                            // print('84');
                             return Text(
                               snapshot.data.toString(),
                               style: const TextStyle(
                                 fontSize: 27,
+                                // fontSize: 10,
                               ),
                             );
                           }
@@ -104,21 +106,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('diary')
+                        .orderBy('date', descending: true)
                         .snapshots(),
                     builder: (context, snapshot) {
-                      List<DiaryContainerWidget> diaryContainers = [];
+                      List<ReadDiaryComponent> diaryContainers = [];
                       if (snapshot.hasData) {
                         // print(
                         //     '_diaryController.docIDs.length: ${_diaryController.docIDs.length}');
                         final diaries = snapshot.data!.docs;
                         for (var diary in diaries) {
+                          final docID = diary.reference.id;
+                          print('docID:: $docID');
                           final diaryDate = diary.get('date');
                           final diaryEmoji = diary.get('emoji');
                           final diaryContent = diary.get('content');
-                          final diaryContainer = DiaryContainerWidget(
+                          final diaryContainer = ReadDiaryComponent(
                               date: diaryDate,
                               content: diaryContent,
-                              emoji: diaryEmoji);
+                              emoji: diaryEmoji,
+                              id: docID);
                           diaryContainers.add(diaryContainer);
                         }
                         return ListView(

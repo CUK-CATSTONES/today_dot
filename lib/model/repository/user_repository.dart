@@ -58,6 +58,7 @@ class UserRepository {
     if (document.data() == null) {
       return Status.userNotFound;
     }
+    user = UserVO.fromMap(document.data() as Map<String, dynamic>);
     return Status.success;
   }
 }

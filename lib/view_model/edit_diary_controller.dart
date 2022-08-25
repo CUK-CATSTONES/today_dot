@@ -41,6 +41,20 @@ class EditDiaryController extends GetxController {
     });
   }
 
+  Future deleteUserInfoInDB(String id) async {
+    DiaryRepository diaryRepository = DiaryRepository();
+    await diaryRepository.deleteDiary(id).then((result) {
+      switch (result) {
+        case Status.error:
+          print('삭제 에러');
+          break;
+        case Status.success:
+          print('삭제 완료!!');
+          break;
+      }
+    });
+  }
+
   Future readDiaryToDB() async {
     try {
       CollectionReference userDiary =

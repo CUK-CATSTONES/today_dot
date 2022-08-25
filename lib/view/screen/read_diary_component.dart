@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:today_dot/view_model/edit_diary_controller.dart';
 
-class DiaryContainerWidget extends StatelessWidget {
+class ReadDiaryComponent extends StatelessWidget {
+  final _editDiaryController = Get.put(EditDiaryController());
   final String date;
   final String content;
   final String emoji;
+  final String id;
 
-  const DiaryContainerWidget(
-      {Key? key,
-      required this.date,
-      required this.content,
-      required this.emoji})
-      : super(key: key);
+  ReadDiaryComponent({
+    Key? key,
+    required this.date,
+    required this.content,
+    required this.emoji,
+    required this.id,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +72,9 @@ class DiaryContainerWidget extends StatelessWidget {
                                         style: TextStyle(fontSize: 16),
                                       ),
                                       IconButton(
-                                        onPressed: () => Get.back(),
+                                        onPressed: () {
+                                          Get.back();
+                                        },
                                         icon: const Icon(
                                           Icons.close,
                                           size: 25,
@@ -86,12 +92,19 @@ class DiaryContainerWidget extends StatelessWidget {
                                     children: [
                                       TextButton(
                                         onPressed: () => Get.back(),
-                                        child: const Text('취소',
-                                            style: TextStyle(
-                                                color: Color(0xff888585))),
+                                        child: const Text(
+                                          '취소',
+                                          style: TextStyle(
+                                            color: Color(0xff888585),
+                                          ),
+                                        ),
                                       ),
                                       ElevatedButton(
-                                        onPressed: () => Get.back(),
+                                        onPressed: () {
+                                          _editDiaryController
+                                              .deleteUserInfoInDB(id);
+                                          Get.back();
+                                        },
                                         style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
                                             borderRadius:

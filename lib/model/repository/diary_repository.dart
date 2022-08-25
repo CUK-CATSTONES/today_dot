@@ -41,6 +41,17 @@ class DiaryRepository {
     return Status.success;
   }
 
+  Future deleteDiary(String id) async {
+    try {
+      CollectionReference userDiary =
+          FirebaseFirestore.instance.collection(collection);
+      await userDiary.doc(id).delete();
+    } catch (e) {
+      return Status.error;
+    }
+    return Status.success;
+  }
+
   Future readDiary() async {
     DocumentSnapshot document;
     try {
