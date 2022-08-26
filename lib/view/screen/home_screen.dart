@@ -43,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xffffffff),
         onPressed: () {
-          print("add diary");
           Get.offAllNamed('/editDiary');
         },
         child: const Icon(
@@ -116,7 +115,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         final diaries = snapshot.data!.docs;
                         for (var diary in diaries) {
                           final docID = diary.reference.id;
-                          print('docID:: $docID');
                           final diaryDate = diary.get('date');
                           final diaryEmoji = diary.get('emoji');
                           final diaryContent = diary.get('content');

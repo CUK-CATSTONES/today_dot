@@ -12,6 +12,7 @@ class TextFieldWidget extends StatelessWidget {
   final FocusNode? focusNode;
   final double? borderRadius;
   final int? maxLength;
+  final ValueChanged<String>? onchanged;
   bool isEmailCorrected = true;
 
   TextFieldWidget({
@@ -24,6 +25,7 @@ class TextFieldWidget extends StatelessWidget {
     this.focusNode,
     this.borderRadius,
     this.maxLength,
+    this.onchanged,
     required this.validator,
   }) : super(key: key);
 
@@ -43,6 +45,7 @@ class TextFieldWidget extends StatelessWidget {
             focusNode: focusNode,
             // autovalidateMode: AutovalidateMode.onUserInteraction,
             autofocus: fieldTitle!.contains('아이디') ? true : false,
+            onChanged: onchanged,
             // keyboardType: fieldTitle!.contains('아이디')
             //     ? TextInputType.emailAddress
             //     : TextInputType.text,

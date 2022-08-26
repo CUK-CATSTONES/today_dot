@@ -13,28 +13,27 @@ class EditDiaryScreen extends StatefulWidget {
 }
 
 class _EditDiaryScreenState extends State<EditDiaryScreen> {
+  List<String> emojiList = [
+    'images/happy.png',
+    'images/hmm.png',
+    'images/yummy.png',
+    'images/wink.png',
+    'images/dizzy.png',
+    'images/angry.png',
+    'images/smile.png',
+    'images/sad.png',
+  ];
+  bool isVisible = false;
+  bool isClicked = false;
+  String currentEmoji = 'images/happy.png';
+  late int pickEmojiIndex;
+
+  TextEditingController content = TextEditingController();
+  EditDiaryController editcontroller = EditDiaryController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  FocusNode textFocus = FocusNode();
   @override
   Widget build(BuildContext context) {
-    List<String> EmojiList = [
-      'images/angry_emoji.png',
-      'images/blank_emoji.png',
-      'images/funny_emoji.png',
-      'images/happy_emoji.png',
-      'images/sad_emoji.png',
-    ];
-    final firestore = FirebaseFirestore.instance;
-    bool isVisible = false;
-    bool isClicked = false;
-    String _currentEmoji = 'images/angry_emoji.png';
-    // String current(String value) {
-    //   setState(() {
-    //     _currentEmoji = value;
-    //   });
-    //   return
-    // }
-    TextEditingController content = TextEditingController();
-    EditDiaryController editcontroller = EditDiaryController();
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -54,55 +53,72 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
           color: const Color(0xFFFFFDF9),
           child: Align(
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text('오늘 하루 어땠나요?', style: TextStyle(fontSize: 28.0)),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30.0),
-                  child: Container(
-                    width: 350,
-                    height: 116,
-                    decoration: BoxDecoration(
-                      color: const Color(0x4dC4DDFF),
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              '오늘의 감정',
-                              style: TextStyle(fontSize: 20.0),
-                            ),
-                            const SizedBox(width: 10.0),
-                            Image.asset(
-                              _currentEmoji,
-                              width: 40.0,
-                              height: 40.0,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20.0),
-                        Row(
+                  child: InkWell(
+                    onTap: () => Get.bottomSheet(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 25.0),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: List.generate(
-                            EmojiList.length,
+                            emojiList.length,
                             (index) => InkWell(
                               onTap: () {
-                                print('clicked');
-                                print(EmojiList[index]);
+                                print(emojiList[index]);
+                                print('index: $index');
                                 setState(() {
-                                  _currentEmoji = EmojiList[index];
-                                  print('_currentEmoji: $_currentEmoji');
+                                  isClicked = true;
+                                  pickEmojiIndex = index;
+                                  currentEmoji = emojiList[index];
+                                  editcontroller.emoji = currentEmoji;
                                 });
+                                print('currentEmoji: $currentEmoji');
+                                print(
+                                    'editcontroller.emoji: ${editcontroller.emoji}');
+                                print('pickEmojiIndex: $pickEmojiIndex');
+                                print('isClicked: $isClicked');
+                                print('----');
+                                Get.back();
                               },
-                              child: Image.asset(EmojiList[index],
+                              child: Image.asset(emojiList[index],
                                   width: 40, height: 40),
                             ),
                           ),
                         ),
-                      ],
+                      ),
+                      backgroundColor: Colors.white,
+                    ),
+                    child: Container(
+                      width: 350,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: const Color(0x4dC4DDFF),
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                '오늘의 감정',
+                                style: TextStyle(fontSize: 20.0),
+                              ),
+                              const SizedBox(width: 10.0),
+                              Image.asset(
+                                currentEmoji,
+                                width: 40.0,
+                                height: 40.0,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -112,10 +128,18 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                     key: _formKey,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: TextFieldWidget(
+                      focusNode: textFocus,
                       controller: content,
                       validator: (value) {
                         editcontroller.content = value;
-                        print('109 : ${content.text}');
+                      },
+                      onchanged: (value) {
+                        if (value.contains('.')) {
+                          print('contain!!');
+                          textFocus.unfocus();
+                          isVisible = true;
+                        }
+                        print(isVisible);
                       },
                       fieldTitle: '',
                       hintText: '100자 이내로 작성해주세요 :)',
@@ -125,17 +149,22 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                     ),
                   ),
                 ),
-                ButtonWidget(
+                Visibility(
+                  visible: isVisible ? true : false,
+                  child: ButtonWidget(
                     label: '저장하기',
                     onTap: () {
                       print('저장 버튼 클릭');
                       Map<String, dynamic> map = {
-                        'emoji': 'images/angry_emoji.png',
+                        'emoji': editcontroller.emoji,
                         'content': editcontroller.content,
                       };
                       print(map);
                       editcontroller.addDiaryToDB(map);
-                    }),
+                    },
+                    bgColor: const Color(0xb392B4EC),
+                  ),
+                ),
               ],
             ),
           ),
