@@ -1,12 +1,8 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:today_dot/view/widget/diary_container.dart';
 import 'package:today_dot/view/screen/read_diary_component.dart';
-import 'package:today_dot/view_model/edit_diary_controller.dart';
-import 'package:today_dot/view_model/sign_out_controller.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view_model/user_controller.dart';
 
@@ -81,9 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             return const CircularProgressIndicator();
                           } else {
                             // print('84');
-                            _changeNameController
-                                .getName()
-                                .then((value) => print('value::: ${value}'));
+                            // _changeNameController
+                            //     .getName()
+                            //     .then((value) => print('value::: ${value}'));
                             return Text(
                               snapshot.data.toString(),
                               style: const TextStyle(

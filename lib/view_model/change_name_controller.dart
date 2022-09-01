@@ -11,7 +11,6 @@ class ChangeNameController extends SharedPreferencesImpl {
   Future<String?> getName() async {
     try {
       _prefs = await super.init();
-      print('14');
       return await readString('name');
     } catch (e) {
       print(e);

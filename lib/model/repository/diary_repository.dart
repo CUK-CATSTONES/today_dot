@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:today_dot/model/VO/diary_vo.dart';
 import 'package:intl/intl.dart';
 import 'package:today_dot/model/VO/user_vo.dart';
 
 import '../asset/status.dart';
+import 'dart:io';
 
 class DiaryRepository {
   // final auth = FirebaseAuth.instance;
@@ -23,6 +25,8 @@ class DiaryRepository {
   String collection1 = 'user';
   String collection2 = 'diary';
 
+  final String defaultLocale = Platform.localeName;
+
   // void addDiaryUID(Map<String, dynamic> map) async {
   //   final documentReference =
   //       FirebaseFirestore.instance.collection('diary').doc();
@@ -33,7 +37,7 @@ class DiaryRepository {
   Future addDiary(String content, String emoji, String uid) async {
     Timestamp stamp = Timestamp.now();
     DateTime date = stamp.toDate();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+    String formattedDate = DateFormat('yyyy-MM-dd hh시 mm분', 'ko').format(date);
     try {
       // Map<String, dynamic>? map = diary?.toJson();
       // user
@@ -67,9 +71,15 @@ class DiaryRepository {
 
   Future deleteDiary(String id) async {
     try {
-      CollectionReference userDiary =
-          FirebaseFirestore.instance.collection(collection2);
-      await userDiary.doc(id).delete();
+      print('70');
+      CollectionReference userDiary = FirebaseFirestore.instance
+          .collection(collection1)
+          .doc(uid)
+          .collection(collection2);
+      print('userDiary: $userDiary');
+      var userID = userDiary.doc().id;
+      print('userID: $userID');
+      await userDiary.doc(userID).delete();
     } catch (e) {
       return Status.error;
     }

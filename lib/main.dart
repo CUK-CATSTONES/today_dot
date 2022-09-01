@@ -10,6 +10,7 @@ import 'package:today_dot/view/screen/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:today_dot/view/screen/sign_up_screen.dart';
 import 'firebase_options.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +45,15 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/changeName', page: () => const ChangeNameScreen()),
         GetPage(name: '/editDiary', page: () => const EditDiaryScreen()),
       ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('ko', 'KR'),
+      ],
+      locale: const Locale('ko'),
       theme: ThemeData(
           primaryColor: Color(0xff92B4EC),
           inputDecorationTheme: const InputDecorationTheme(
