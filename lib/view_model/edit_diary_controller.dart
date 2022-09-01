@@ -40,7 +40,7 @@ class EditDiaryController extends GetxController {
           break;
         case Status.success:
           print('저장성공');
-          Get.snackbar('저장 완료!', '오늘의 일기가 등록되었습니다.');
+          Get.snackbar('저장 완료!', '일기가 등록되었습니다.');
           Get.offAllNamed('/home');
           break;
       }
@@ -55,6 +55,7 @@ class EditDiaryController extends GetxController {
           print('삭제 에러');
           break;
         case Status.success:
+          Get.snackbar('삭제 완료!', '일기가 삭제되었어요');
           print('삭제 완료!!');
           break;
       }

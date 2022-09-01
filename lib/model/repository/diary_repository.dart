@@ -74,12 +74,10 @@ class DiaryRepository {
       print('70');
       CollectionReference userDiary = FirebaseFirestore.instance
           .collection(collection1)
-          .doc(uid)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection(collection2);
       print('userDiary: $userDiary');
-      var userID = userDiary.doc().id;
-      print('userID: $userID');
-      await userDiary.doc(userID).delete();
+      await userDiary.doc(id).delete();
     } catch (e) {
       return Status.error;
     }
