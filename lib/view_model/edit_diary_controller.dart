@@ -14,7 +14,11 @@ class EditDiaryController extends GetxController {
   String date = '';
   String content = '';
   String emoji = '';
+  String uid = '';
   late UserVO? user;
+
+  String collection1 = 'user';
+  String collection2 = 'diary';
 
   late CollectionReference userData;
 
@@ -57,10 +61,19 @@ class EditDiaryController extends GetxController {
     });
   }
 
+  /*
+  FirebaseFirestore.instance
+          .collection(collection1)
+          .doc(uid)
+          .collection(collection2)
+          */
+
   Future readDiaryToDB() async {
     try {
-      CollectionReference userDiary =
-          FirebaseFirestore.instance.collection('diary');
+      CollectionReference userDiary = FirebaseFirestore.instance
+          .collection(collection1)
+          .doc(uid)
+          .collection(collection2);
       QuerySnapshot querySnapshots = await userDiary.get();
       for (var snapshot in querySnapshots.docs) {
         var documentID = snapshot.id;

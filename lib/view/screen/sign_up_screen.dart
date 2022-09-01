@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:today_dot/view_model/change_name_controller.dart';
 import 'package:today_dot/view_model/sign_up_controller.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final signUpController = Get.put(SignUpController());
+  final _changeNameController = Get.put(ChangeNameController());
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -172,6 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       'name': signUpController.name,
                     };
                     print('139');
+                    await _changeNameController.setName(signUpController.name);
                     await signUpController.signUp(map);
                   } else {
                     Get.snackbar('error', '다시 한번 시도해주세요');

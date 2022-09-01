@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/model/VO/user_vo.dart';
@@ -6,6 +7,7 @@ import 'package:today_dot/model/repository/user_repository.dart';
 
 class UserController extends GetxController {
   late UserVO? user;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
 
   Future addUserInfoToDB(Map<String, dynamic> map) async {
     UserRepository userRepository = UserRepository();
@@ -46,5 +48,42 @@ class UserController extends GetxController {
         }
       });
     }
+  }
+
+  /*
+  var collection = FirebaseFirestore.instance.collection('users');
+collection.doc('some_id').snapshots().listen((docSnapshot) {
+  if (docSnapshot.exists) {
+    Map<String, dynamic> data = docSnapshot.data()!;
+
+    // You can then retrieve the value from the Map like this:
+    var name = data['name'];
+  }
+});
+*/
+
+  Future<String?> readUserName() async {
+    UserRepository userRepository = UserRepository();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    String userName = '';
+    try {
+      FirebaseFirestore.instance
+          .collection('user')
+          .doc(uid)
+          .snapshots()
+          .listen((docSnapshot) async {
+        if (docSnapshot.exists) {
+          Map<String, dynamic> data = docSnapshot.data()!;
+          userName = await data['name'];
+          // print(userName.runtimeType);
+        } else {
+          userName = '게스트';
+        }
+        print(userName);
+      });
+    } catch (e) {
+      print(e);
+    }
+    return userName;
   }
 }

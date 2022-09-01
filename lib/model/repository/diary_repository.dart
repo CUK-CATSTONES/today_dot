@@ -79,6 +79,7 @@ class DiaryRepository {
   Future readDiary() async {
     DocumentSnapshot document;
     try {
+      print('diary repo read 실행중');
       CollectionReference userDiary = FirebaseFirestore.instance
           .collection(collection1)
           .doc(uid)

@@ -20,7 +20,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _changeNameController = Get.put(changeNameController());
+  final _changeNameController = Get.put(ChangeNameController());
+  final _userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             return const CircularProgressIndicator();
                           } else {
                             // print('84');
+                            _changeNameController
+                                .getName()
+                                .then((value) => print('value::: ${value}'));
                             return Text(
                               snapshot.data.toString(),
                               style: const TextStyle(
@@ -104,6 +108,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
+                        .collection('user')
+                        .doc(_userController.uid)
                         .collection('diary')
                         .orderBy('date', descending: true)
                         .snapshots(),
