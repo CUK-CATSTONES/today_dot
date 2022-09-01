@@ -24,9 +24,27 @@ class UserRepository {
   Future addUserInfo(String userEmail, String userName) async {
     try {
       Map<String, dynamic>? map = user?.toJson();
+      //       CollectionReference userDiary = FirebaseFirestore.instance
+      //     .collection(collection1)
+      //     .doc(uid)
+      //     .collection(collection2);
+      // var userID = userDiary.doc().id;
+
+      /*      await userDiary.doc(userID).set({
+        'date': formattedDate,
+        'content': content,
+        'emoji': emoji,
+        'uid': uid,
+        'docID': userID
+      });
+      */
       CollectionReference userData =
           FirebaseFirestore.instance.collection(collection);
-      await userData.add({'email': userEmail, 'name': userName});
+      // await userData.add({'email': userEmail, 'name': userName});
+      var userID = FirebaseAuth.instance.currentUser!.uid;
+      await userData
+          .doc(userID)
+          .set({'email': userEmail, 'name': userName, 'uid': userID});
     } catch (e) {
       print('35: $e');
       return Status.error;

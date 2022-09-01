@@ -26,6 +26,7 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
   bool isVisible = false;
   bool isClicked = false;
   String currentEmoji = 'images/happy.png';
+  String defaultEmoji = 'images/default.png';
   late int pickEmojiIndex;
 
   TextEditingController content = TextEditingController();
@@ -134,10 +135,16 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                         editcontroller.content = value;
                       },
                       onchanged: (value) {
-                        if (value.contains('.')) {
+                        if (value.contains('.') || value.contains('...')) {
                           print('contain!!');
-                          textFocus.unfocus();
-                          isVisible = true;
+                          // textFocus.unfocus();
+                          setState(() {
+                            isVisible = true;
+                          });
+                        } else {
+                          setState(() {
+                            isVisible = false;
+                          });
                         }
                         print(isVisible);
                       },

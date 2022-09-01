@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/model/VO/diary_vo.dart';
+import 'package:today_dot/model/VO/user_vo.dart';
 import 'package:today_dot/model/repository/diary_repository.dart';
 
 import '../model/asset/status.dart';
@@ -12,6 +14,7 @@ class EditDiaryController extends GetxController {
   String date = '';
   String content = '';
   String emoji = '';
+  late UserVO? user;
 
   late CollectionReference userData;
 
@@ -21,12 +24,11 @@ class EditDiaryController extends GetxController {
     print(map['content']);
     DiaryRepository diaryRepository = DiaryRepository();
     print('21');
-    final documentReference =
-        FirebaseFirestore.instance.collection('diary').doc();
-    print('22');
-    final uid = documentReference.id;
-    print(uid);
-    diaryRepository.addDiary(map['content'], map['emoji']).then((value) {
+    map.addAll({'uid': FirebaseAuth.instance.currentUser!.uid});
+    print('map::: $map');
+    diaryRepository
+        .addDiary(map['content'], map['emoji'], map['uid'])
+        .then((value) {
       print(value);
       switch (value) {
         case Status.error:
