@@ -37,7 +37,7 @@ class DiaryRepository {
   Future addDiary(String content, String emoji, String uid) async {
     Timestamp stamp = Timestamp.now();
     DateTime date = stamp.toDate();
-    String formattedDate = DateFormat('yyyy-MM-dd hh시 mm분', 'ko').format(date);
+    String formattedDate = DateFormat('d MMM, yyyy a hh:mm').format(date);
     try {
       // Map<String, dynamic>? map = diary?.toJson();
       // user

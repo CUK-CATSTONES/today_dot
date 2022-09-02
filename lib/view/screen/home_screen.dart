@@ -51,24 +51,13 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(
           color: const Color(0xFFFFFDF9),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 335,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: const Color(0xffFFFFFF),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x40000000),
-                      spreadRadius: 0,
-                      blurRadius: 4,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 35.0, vertical: 15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FutureBuilder(
                         future: _changeNameController.getName(),
@@ -76,30 +65,42 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (snapshot.hasData == false) {
                             return const CircularProgressIndicator();
                           } else {
-                            // print('84');
-                            // _changeNameController
-                            //     .getName()
-                            //     .then((value) => print('value::: ${value}'));
                             return Text(
-                              snapshot.data.toString(),
+                              '${snapshot.data.toString()}님,',
                               style: const TextStyle(
-                                fontSize: 27,
-                                // fontSize: 10,
+                                fontSize: 25,
                               ),
                             );
                           }
                         }),
-                    const Text(
-                      '의 마침표',
-                      style: TextStyle(
-                        fontSize: 27,
+                    const SizedBox(height: 10),
+                    const Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '지금 당신의 ',
+                            style: TextStyle(
+                              fontSize: 22,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '마침표',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '는 어떤가요?',
+                            style: TextStyle(
+                              fontSize: 22,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(15),
               ),
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(

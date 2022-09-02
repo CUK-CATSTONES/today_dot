@@ -54,7 +54,6 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
           color: const Color(0xFFFFFDF9),
           child: Align(
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text('오늘 하루 어땠나요?', style: TextStyle(fontSize: 28.0)),
                 Padding(
@@ -111,10 +110,13 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                                 style: TextStyle(fontSize: 20.0),
                               ),
                               const SizedBox(width: 10.0),
-                              Image.asset(
-                                currentEmoji,
-                                width: 40.0,
-                                height: 40.0,
+                              Visibility(
+                                visible: isClicked ? true : false,
+                                child: Image.asset(
+                                  currentEmoji,
+                                  width: 40.0,
+                                  height: 40.0,
+                                ),
                               ),
                             ],
                           ),
@@ -149,7 +151,6 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                         print(isVisible);
                       },
                       fieldTitle: '',
-                      hintText: '100자 이내로 작성해주세요 :)',
                       maxLine: 10,
                       maxLength: 100,
                       borderRadius: 15.0,
@@ -162,6 +163,9 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                     label: '저장하기',
                     onTap: () {
                       print('저장 버튼 클릭');
+                      if (editcontroller.emoji == '') {
+                        editcontroller.emoji = 'images/happy.png';
+                      }
                       Map<String, dynamic> map = {
                         'emoji': editcontroller.emoji,
                         'content': editcontroller.content,
