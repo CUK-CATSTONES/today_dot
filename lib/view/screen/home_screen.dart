@@ -111,33 +111,60 @@ class _HomeScreenState extends State<HomeScreen> {
                         .orderBy('date', descending: true)
                         .snapshots(),
                     builder: (context, snapshot) {
+                      print('connextionState ::: ${snapshot.connectionState}');
+                      print('snapshot.data :::: ${snapshot.data}');
                       List<ReadDiaryComponent> diaryContainers = [];
-                      if (snapshot.hasData) {
-                        // print(
-                        //     '_diaryController.docIDs.length: ${_diaryController.docIDs.length}');
-                        final diaries = snapshot.data!.docs;
-                        for (var diary in diaries) {
-                          final docID = diary.reference.id;
-                          final diaryDate = diary.get('date');
-                          final diaryEmoji = diary.get('emoji');
-                          final diaryContent = diary.get('content');
-                          final diaryContainer = ReadDiaryComponent(
-                              date: diaryDate,
-                              content: diaryContent,
-                              emoji: diaryEmoji,
-                              id: docID);
-                          diaryContainers.add(diaryContainer);
-                        }
-                        return ListView(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 20.0),
-                          children: diaryContainers,
+                      if (snapshot.hasError) {
+                        return Column(
+                          children: const [
+                            Text('알 수 없는 오류가 생겼어요.'),
+                            Text('관리자에게 문의 부탁드립니다.'),
+                          ],
                         );
-                      } else if (snapshot.hasError) {
-                        return const Text('error...');
-                      } else {
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       }
+                      if (snapshot.hasData && snapshot.data!.docs.isEmpty) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                '오늘 하루 순간순간 느낀 감정을 기록해보세요',
+                                style: TextStyle(
+                                    // fontSize: width * 0.08,
+                                    ),
+                              ),
+                              SizedBox(height: 20),
+                              Text(
+                                '그때 느낀 감정의 마침표를 찍어보는건 어떨까요?',
+                                style: TextStyle(
+                                    // fontSize: width * 0.065,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      final diaries = snapshot.data!.docs;
+                      for (var diary in diaries) {
+                        final docID = diary.reference.id;
+                        final diaryDate = diary.get('date');
+                        final diaryEmoji = diary.get('emoji');
+                        final diaryContent = diary.get('content');
+                        final diaryContainer = ReadDiaryComponent(
+                            date: diaryDate,
+                            content: diaryContent,
+                            emoji: diaryEmoji,
+                            id: docID);
+                        diaryContainers.add(diaryContainer);
+                      }
+                      return ListView(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 20.0),
+                        children: diaryContainers,
+                      );
                     }),
               ),
             ],

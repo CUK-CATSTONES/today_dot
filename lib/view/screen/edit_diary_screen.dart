@@ -50,17 +50,30 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: Container(
-          color: const Color(0xFFFFFDF9),
-          child: Align(
-            child: Column(
-              children: [
-                const Text('오늘 하루 어땠나요?', style: TextStyle(fontSize: 28.0)),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30.0),
-                  child: InkWell(
-                    onTap: () => Get.bottomSheet(
-                      Padding(
+        child: SingleChildScrollView(
+          child: Container(
+            color: const Color(0xFFFFFDF9),
+            child: Align(
+              child: Column(
+                children: [
+                  const Text('지금 기분이 어떤가요?', style: TextStyle(fontSize: 28.0)),
+                  const SizedBox(height: 10),
+                  Image.asset(
+                    currentEmoji,
+                    width: 70,
+                    height: 70,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 30.0, horizontal: 20.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 90,
+                      decoration: BoxDecoration(
+                        color: const Color(0x4dC4DDFF),
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 25.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -90,93 +103,64 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                           ),
                         ),
                       ),
-                      backgroundColor: Colors.white,
                     ),
-                    child: Container(
-                      width: 350,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: const Color(0x4dC4DDFF),
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                '오늘의 감정',
-                                style: TextStyle(fontSize: 20.0),
-                              ),
-                              const SizedBox(width: 10.0),
-                              Visibility(
-                                visible: isClicked ? true : false,
-                                child: Image.asset(
-                                  currentEmoji,
-                                  width: 40.0,
-                                  height: 40.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        right: 20.0,
+                        left: 20.0,
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: Form(
+                      key: _formKey,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      child: TextFieldWidget(
+                        focusNode: textFocus,
+                        controller: content,
+                        validator: (value) {
+                          editcontroller.content = value;
+                        },
+                        onchanged: (value) {
+                          if (value.contains('.') || value.contains('...')) {
+                            print('contain!!');
+                            // textFocus.unfocus();
+                            setState(() {
+                              isVisible = true;
+                            });
+                          } else {
+                            setState(() {
+                              isVisible = false;
+                            });
+                          }
+                          print(isVisible);
+                        },
+                        fieldTitle: '',
+                        maxLine: 10,
+                        maxLength: 100,
+                        borderRadius: 15.0,
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Form(
-                    key: _formKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: TextFieldWidget(
-                      focusNode: textFocus,
-                      controller: content,
-                      validator: (value) {
-                        editcontroller.content = value;
-                      },
-                      onchanged: (value) {
-                        if (value.contains('.') || value.contains('...')) {
-                          print('contain!!');
-                          // textFocus.unfocus();
-                          setState(() {
-                            isVisible = true;
-                          });
-                        } else {
-                          setState(() {
-                            isVisible = false;
-                          });
+                  Visibility(
+                    visible: isVisible ? true : false,
+                    child: ButtonWidget(
+                      label: '저장하기',
+                      bgColor: const Color(0xb392B4EC),
+                      onTap: () {
+                        print('저장 버튼 클릭');
+                        if (editcontroller.emoji == '') {
+                          editcontroller.emoji = 'images/happy.png';
                         }
-                        print(isVisible);
+                        Map<String, dynamic> map = {
+                          'emoji': editcontroller.emoji,
+                          'content': editcontroller.content,
+                        };
+                        print(map);
+                        editcontroller.addDiaryToDB(map);
                       },
-                      fieldTitle: '',
-                      maxLine: 10,
-                      maxLength: 100,
-                      borderRadius: 15.0,
                     ),
                   ),
-                ),
-                Visibility(
-                  visible: isVisible ? true : false,
-                  child: ButtonWidget(
-                    label: '저장하기',
-                    onTap: () {
-                      print('저장 버튼 클릭');
-                      if (editcontroller.emoji == '') {
-                        editcontroller.emoji = 'images/happy.png';
-                      }
-                      Map<String, dynamic> map = {
-                        'emoji': editcontroller.emoji,
-                        'content': editcontroller.content,
-                      };
-                      print(map);
-                      editcontroller.addDiaryToDB(map);
-                    },
-                    bgColor: const Color(0xb392B4EC),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
