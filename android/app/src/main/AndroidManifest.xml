@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.today_dot">
+    package="com.catstones.today_dot">
    <application
         android:label="today_dot"
         android:name="${applicationName}"

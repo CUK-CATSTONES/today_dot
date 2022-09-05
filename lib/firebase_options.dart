@@ -66,8 +66,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '889671983000',
     projectId: 'today-dot',
     storageBucket: 'today-dot.appspot.com',
-    iosClientId: '889671983000-0d97u3h3a7jqq72htvr1iobraiq1g3lq.apps.googleusercontent.com',
-    iosBundleId: 'com.example.todayDot',
+    iosClientId:
+        '889671983000-0d97u3h3a7jqq72htvr1iobraiq1g3lq.apps.googleusercontent.com',
+    iosBundleId: 'com.catstones.todayDot',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -76,7 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '889671983000',
     projectId: 'today-dot',
     storageBucket: 'today-dot.appspot.com',
-    iosClientId: '889671983000-0d97u3h3a7jqq72htvr1iobraiq1g3lq.apps.googleusercontent.com',
-    iosBundleId: 'com.example.todayDot',
+    iosClientId:
+        '889671983000-0d97u3h3a7jqq72htvr1iobraiq1g3lq.apps.googleusercontent.com',
+    iosBundleId: 'com.catstones.todayDot',
   );
 }

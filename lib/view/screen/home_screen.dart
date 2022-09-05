@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:today_dot/view/screen/read_diary_component.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view_model/user_controller.dart';
-
-import '../../view_model/change_name_controller.dart';
+import 'package:today_dot/view_model/change_name_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -111,8 +108,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         .orderBy('date', descending: true)
                         .snapshots(),
                     builder: (context, snapshot) {
-                      print('connextionState ::: ${snapshot.connectionState}');
-                      print('snapshot.data :::: ${snapshot.data}');
                       List<ReadDiaryComponent> diaryContainers = [];
                       if (snapshot.hasError) {
                         return Column(

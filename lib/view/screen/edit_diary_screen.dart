@@ -46,6 +46,7 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFFFFDF9),
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFDF9),
@@ -59,6 +60,9 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
           TextButton(
             onPressed: () {
               if (isVisible) {
+                if (editcontroller.emoji == '') {
+                  editcontroller.emoji = 'images/happy.png';
+                }
                 Map<String, dynamic> map = {
                   'emoji': editcontroller.emoji,
                   'content': editcontroller.content,
@@ -89,6 +93,7 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
           controller: _scrollController,
           child: Container(
             color: const Color(0xFFFFFDF9),
+            // color: Colors.black,
             child: Align(
               child: Column(
                 children: [
@@ -154,6 +159,11 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                         controller: content,
                         validator: (value) {
                           editcontroller.content = value;
+                        },
+                        onTap: () {
+                          _scrollController.animateTo(140.0,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.easeOutCirc);
                         },
                         onchanged: (value) {
                           if (value.contains('.') || value.contains('...')) {

@@ -1,4 +1,4 @@
-package com.example.today_dot
+package com.catstones.today_dot
 
 import io.flutter.embedding.android.FlutterActivity
 
