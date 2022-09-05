@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:today_dot/view/screen/home_screen.dart';
-import 'package:today_dot/view/screen/setting_screen.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
 
 import '../../view_model/change_name_controller.dart';
@@ -20,6 +16,7 @@ class _ChangeNameScreenState extends State<ChangeNameScreen> {
   final _changeNameController = Get.put(ChangeNameController());
   final TextEditingController userName = TextEditingController();
 
+  bool isVisible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +32,7 @@ class _ChangeNameScreenState extends State<ChangeNameScreen> {
             onPressed: () {
               Get.toNamed('/setting');
             },
-          )
+          ),
         ],
       ),
       body: Container(
@@ -48,41 +45,33 @@ class _ChangeNameScreenState extends State<ChangeNameScreen> {
               style: TextStyle(fontSize: 32.0),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(20, 85, 20, 240),
+              padding: EdgeInsets.fromLTRB(20, 85, 20, 40),
               child: TextFieldWidget(
                 controller: userName,
                 fieldTitle: '변경 할 닉네임',
                 validator: (val) {},
+                onchanged: (value) {
+                  if (value.length >= 1) {
+                    setState(() {
+                      isVisible = true;
+                    });
+                  } else {
+                    isVisible = false;
+                  }
+                },
               ),
             ),
-            ButtonWidget(
-                bgColor: const Color(0xff92B4EC),
-                label: '저장하기',
-                onTap: () async {
-                  // FutureBuilder(
-                  //     future: _changeNameController.setName(userName.text),
-                  //     builder: (context, snapshot) {
-                  //       /*
-                  //       // ???
-                  //       if(userName.text == 'r'){
-                  //         ScaffoldMessenger.of(context).showSnackBar(
-                  //           SnackBar(content: Text('닉네임에 글자를 입력해주세요'), duration: Duration(seconds: 5),),);
-                  //       }*/
-                  //       if (snapshot.hasData == false) {
-                  //         return CircularProgressIndicator();
-                  //       } else {
-                  //         return Text(
-                  //           snapshot.data.toString(),
-                  //           style: TextStyle(
-                  //             fontSize: 27,
-                  //           ),
-                  //         );
-                  //       }
-                  //     });
-                  await _changeNameController.setName(userName.text);
-                  // 저장하는거
-                  Get.toNamed('/home');
-                }),
+            Visibility(
+              visible: isVisible ? true : false,
+              child: ButtonWidget(
+                  bgColor: const Color(0xff92B4EC),
+                  label: '저장하기',
+                  onTap: () async {
+                    await _changeNameController.setName(userName.text);
+                    // 저장하는거
+                    Get.toNamed('/home');
+                  }),
+            ),
           ],
         ),
       ),

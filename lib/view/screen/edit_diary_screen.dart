@@ -28,15 +28,25 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
   String currentEmoji = 'images/happy.png';
   String defaultEmoji = 'images/default.png';
   late int pickEmojiIndex;
+  late ScrollController _scrollController;
+
+  // ScrollController _scrollController = ScrollController();
 
   TextEditingController content = TextEditingController();
   EditDiaryController editcontroller = EditDiaryController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   FocusNode textFocus = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFDF9),
         elevation: 0,
@@ -45,12 +55,38 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
           icon: const Icon(Icons.arrow_back_ios),
           color: Colors.black,
         ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              if (isVisible) {
+                Map<String, dynamic> map = {
+                  'emoji': editcontroller.emoji,
+                  'content': editcontroller.content,
+                };
+                print(map);
+                editcontroller.addDiaryToDB(map);
+              } else
+                null;
+            },
+            style: TextButton.styleFrom(
+              textStyle: const TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            child: Text(
+              "저장",
+              style: TextStyle(
+                  color: isVisible == true ? Colors.black : Colors.grey),
+            ),
+          ),
+        ],
       ),
       body: InkWell(
         onTap: () {
           FocusScope.of(context).unfocus();
         },
         child: SingleChildScrollView(
+          controller: _scrollController,
           child: Container(
             color: const Color(0xFFFFFDF9),
             child: Align(
@@ -140,25 +176,6 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                       ),
                     ),
                   ),
-                  Visibility(
-                    visible: isVisible ? true : false,
-                    child: ButtonWidget(
-                      label: '저장하기',
-                      bgColor: const Color(0xb392B4EC),
-                      onTap: () {
-                        print('저장 버튼 클릭');
-                        if (editcontroller.emoji == '') {
-                          editcontroller.emoji = 'images/happy.png';
-                        }
-                        Map<String, dynamic> map = {
-                          'emoji': editcontroller.emoji,
-                          'content': editcontroller.content,
-                        };
-                        print(map);
-                        editcontroller.addDiaryToDB(map);
-                      },
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -166,5 +183,11 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }
