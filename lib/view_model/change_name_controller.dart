@@ -19,10 +19,7 @@ class ChangeNameController extends SharedPreferencesImpl {
   }
 
   Future<String> readString(String name) async {
-    String? username = await _prefs.getString('name') ?? '테스트';
-
-    // print('aaaaaaa  :: ${_prefs.getString('name')}');
-    // print('ddddd:::: ${_userController.readUserName().toString()}');
+    String? username = await _prefs.getString('name') ?? '게스트';
     return username;
   }
 

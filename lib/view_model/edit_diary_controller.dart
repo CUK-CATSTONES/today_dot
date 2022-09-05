@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/model/VO/diary_vo.dart';
 import 'package:today_dot/model/VO/user_vo.dart';
@@ -9,6 +10,7 @@ import '../model/asset/status.dart';
 
 class EditDiaryController extends GetxController {
   late DiaryVO? diary;
+
   RxList docIDs = [].obs;
 
   String date = '';
