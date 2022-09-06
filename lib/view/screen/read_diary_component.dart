@@ -46,6 +46,7 @@ class ReadDiaryComponent extends StatelessWidget {
                         style: const TextStyle(
                           color: Color(0xff979797),
                           fontSize: 15,
+                          fontFamily: 'cafe24',
                         ),
                       ),
                       const Padding(
@@ -84,7 +85,10 @@ class ReadDiaryComponent extends StatelessWidget {
                                           children: [
                                             const Text(
                                               '일기를 삭제할까요?',
-                                              style: TextStyle(fontSize: 16),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontFamily: 'nexon',
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                             IconButton(
                                               onPressed: () {
@@ -111,26 +115,31 @@ class ReadDiaryComponent extends StatelessWidget {
                                                 '취소',
                                                 style: TextStyle(
                                                   color: Color(0xff888585),
+                                                  fontFamily: 'nexon',
                                                 ),
                                               ),
                                             ),
-                                            ElevatedButton(
+                                            TextButton(
                                               onPressed: () {
                                                 _editDiaryController
                                                     .deleteUserInfoInDB(id);
                                                 Get.back();
                                               },
-                                              style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                              ),
+                                              // style: ElevatedButton.styleFrom(
+                                              //   shape: RoundedRectangleBorder(
+                                              //     borderRadius:
+                                              //         BorderRadius.circular(
+                                              //             10.0),
+                                              //   ),
+                                              // ),
                                               child: const Text(
                                                 '확인',
                                                 style: TextStyle(
-                                                    color: Colors.black),
+                                                  color: Color.fromARGB(
+                                                      255, 108, 151, 218),
+                                                  fontFamily: 'nexon',
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -151,13 +160,15 @@ class ReadDiaryComponent extends StatelessWidget {
                 children: [
                   const SizedBox(width: 13),
                   Image.asset(emoji, width: 60, height: 60),
-                  // const SizedBox(width: 20),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 13.0),
                       child: Text(
                         content,
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Gmarket',
+                        ),
                       ),
                     ),
                   ),

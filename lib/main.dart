@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: '/home',
+      initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const SignInScreen()),
         GetPage(name: '/signUp', page: () => const SignUpScreen()),
@@ -55,15 +55,15 @@ class MyApp extends StatelessWidget {
       ],
       locale: const Locale('ko'),
       theme: ThemeData(
-          primaryColor: Color(0xff92B4EC),
+          primaryColor: const Color(0xff92B4EC),
           inputDecorationTheme: const InputDecorationTheme(
             border: OutlineInputBorder(),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
-                  primary: Color(0xff92B4EC),
-                  onSurface: Color(0xff92B4EC),
-                  textStyle: TextStyle(color: Colors.black)))),
+                  primary: const Color(0xff92B4EC),
+                  onSurface: const Color(0xff92B4EC),
+                  textStyle: const TextStyle(color: Colors.black)))),
     );
   }
 }

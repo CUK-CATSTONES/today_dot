@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:today_dot/view_model/change_name_controller.dart';
 import 'package:today_dot/view_model/sign_up_controller.dart';
 
@@ -45,10 +43,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text(
-                '회원가입',
-                style: TextStyle(fontSize: 30.0),
-              ),
+              // const Text(
+              //   '회원가입',
+              //   style: TextStyle(
+              //       fontSize: 30.0,
+              //       fontFamily: 'cafe24',
+              //       fontWeight: FontWeight.bold),
+              // ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -64,7 +65,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           children: [
                             Expanded(
                               child: TextFieldWidget(
-                                // suffixButtonText: '중복확인',
                                 controller: userEmail,
                                 validator: (val) {
                                   signUpController.email = '';
@@ -72,13 +72,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     isEmailCorrect = false;
                                     return '이메일을 입력해주세요';
                                   }
-                                  // else if (!val.contains(RegExp(r'[@]'))) {
-                                  //   isEmailVerified = false;
-                                  //   return '이메일 형식이 맞지 않습니다';
-                                  // }
-
-                                  /// 정상적으로 이메일을 입력했을 때
-                                  // signUpController.checkDuplicatedID();
                                   isEmailCorrect = true;
                                   signUpController.email =
                                       val.trim() + '@gmail.com';
@@ -92,7 +85,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const SizedBox(width: 5.0),
                             const Text(
                               '@gmail.com',
-                              style: TextStyle(fontSize: 20.0),
+                              style: TextStyle(
+                                  fontSize: 20.0, fontFamily: 'gMarket'),
                             ),
                           ],
                         ),
@@ -190,9 +184,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Text(
                       '회원가입',
                       style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.black,
-                      ),
+                          fontSize: 20.0,
+                          color: Colors.black,
+                          fontFamily: 'gMarket'),
                     ),
                   ),
                 ),

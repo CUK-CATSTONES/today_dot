@@ -28,7 +28,10 @@ class ButtonWidget extends StatelessWidget {
         child: Center(
           child: Text(
             label,
-            style: const TextStyle(fontSize: 17.0),
+            style: const TextStyle(
+                fontSize: 17.0,
+                fontFamily: 'nexon',
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),

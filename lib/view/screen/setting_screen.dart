@@ -13,8 +13,12 @@ class SettingScreen extends StatelessWidget {
         centerTitle: false,
         leadingWidth: 2,
         title: const Text(
-          '설정',
-          style: TextStyle(color: Colors.black, fontSize: 25),
+          '  Setting',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 25,
+            fontFamily: 'Gmarket',
+          ),
         ),
         backgroundColor: const Color(0xFFFFFDF9),
         elevation: 0,
@@ -66,7 +70,12 @@ class SettingScreen extends StatelessWidget {
                     ),
                     child: const Text(
                       '닉네임변경',
-                      style: TextStyle(color: Colors.black, fontSize: 22),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontFamily: 'nexon',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
@@ -92,7 +101,12 @@ class SettingScreen extends StatelessWidget {
                     ),
                     child: const Text(
                       '로그아웃',
-                      style: TextStyle(color: Colors.black, fontSize: 22),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontFamily: 'nexon',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],

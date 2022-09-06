@@ -38,7 +38,11 @@ class SignInScreen extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(8, 8, 8, 40),
                   child: Text(
                     '오늘의 마침표.',
-                    style: TextStyle(fontSize: 32.0),
+                    style: TextStyle(
+                      fontSize: 32.0,
+                      fontFamily: 'cafe24',
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Padding(
@@ -106,6 +110,7 @@ class SignInScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14.0,
                           color: Color(0xff949494),
+                          fontFamily: 'Gmarket',
                         ),
                       ),
                       TextButton(
@@ -118,7 +123,10 @@ class SignInScreen extends StatelessWidget {
                         child: const Text(
                           '회원가입',
                           style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
+                            fontFamily: 'Gmarket',
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],

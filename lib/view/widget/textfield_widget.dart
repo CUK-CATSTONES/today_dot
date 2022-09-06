@@ -39,12 +39,19 @@ class TextFieldWidget extends StatelessWidget {
       children: [
         Text(
           fieldTitle ?? '',
-          style: const TextStyle(fontSize: 16.0, color: Colors.black),
+          style: const TextStyle(
+            fontSize: 16.0,
+            color: Colors.black,
+            fontFamily: 'Gmarket',
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextFormField(
             focusNode: focusNode,
+            style: const TextStyle(
+              fontFamily: 'Gmarket',
+            ),
             // autovalidateMode: AutovalidateMode.onUserInteraction,
             autofocus: fieldTitle!.contains('아이디') ? true : false,
             onTap: onTap,
@@ -58,20 +65,6 @@ class TextFieldWidget extends StatelessWidget {
             maxLength: maxLength,
             obscureText: fieldTitle!.contains('비밀번호') ? true : false,
             decoration: InputDecoration(
-              // suffixIcon: TextButton(
-              //   child: Text(
-              //     suffixButtonText ?? '',
-              //     style: const TextStyle(
-              //       color: Color(0xff6482B4),
-              //       fontSize: 16.0,
-              //     ),
-              //   ),
-              //   //중복확인하는 로직 필요
-              //   onPressed: () async {
-              //     await _signUpController.checkDuplicatedID();
-              //     print('clicked');
-              //   },
-              // ),
               hintText: hintText,
               filled: true,
               fillColor: const Color(0x4dC4DDFF),

@@ -26,7 +26,7 @@ class SignInController extends GetxController {
         switch (value) {
           case Status.signIn:
             Get.back();
-            Get.snackbar('로그인 완료', '환영해요!');
+            // Get.snackbar('로그인 완료', '환영해요!');
             Get.offAllNamed('/home');
             break;
           case Status.userNotFound:

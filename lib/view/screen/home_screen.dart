@@ -65,7 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             return Text(
                               '${snapshot.data.toString()}님,',
                               style: const TextStyle(
-                                fontSize: 25,
+                                fontSize: 22,
+                                fontFamily: 'cafe24',
                               ),
                             );
                           }
@@ -77,20 +78,23 @@ class _HomeScreenState extends State<HomeScreen> {
                           TextSpan(
                             text: '지금 당신의 ',
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 23,
+                              fontFamily: 'cafe24',
                             ),
                           ),
                           TextSpan(
                             text: '마침표',
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 23,
+                              fontFamily: 'cafe24',
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           TextSpan(
                             text: '는 어떤가요?',
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 23,
+                              fontFamily: 'cafe24',
                             ),
                           ),
                         ],
@@ -126,18 +130,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Text(
-                                '오늘 하루 순간순간 느낀 감정을 기록해보세요',
+                                '오늘 하루 순간순간 느낀 감정을 기록해보세요 :)',
                                 style: TextStyle(
-                                    // fontSize: width * 0.08,
-                                    ),
+                                  // fontSize: width * 0.08,
+                                  fontFamily: 'nexon',
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               SizedBox(height: 20),
-                              Text(
-                                '그때 느낀 감정의 마침표를 찍어보는건 어떨까요?',
-                                style: TextStyle(
-                                    // fontSize: width * 0.065,
-                                    ),
-                              ),
                             ],
                           ),
                         );

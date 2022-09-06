@@ -22,12 +22,12 @@ class _ChangeNameScreenState extends State<ChangeNameScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFFDF9),
+        backgroundColor: const Color(0xFFFFFDF9),
         elevation: 0,
         actions: <Widget>[
-          new IconButton(
+          IconButton(
             iconSize: 40,
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
             color: Colors.black,
             onPressed: () {
               Get.toNamed('/setting');
@@ -37,21 +37,24 @@ class _ChangeNameScreenState extends State<ChangeNameScreen> {
       ),
       body: Container(
         width: double.infinity,
-        color: Color(0xFFFFFDF9),
+        color: const Color(0xFFFFFDF9),
         child: Column(
           children: [
-            Text(
-              '닉네임변경',
-              style: TextStyle(fontSize: 32.0),
+            const Text(
+              '닉네임 변경',
+              style: TextStyle(
+                  fontSize: 32.0,
+                  fontFamily: 'cafe24',
+                  fontWeight: FontWeight.bold),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(20, 85, 20, 40),
+              padding: const EdgeInsets.fromLTRB(20, 85, 20, 40),
               child: TextFieldWidget(
                 controller: userName,
                 fieldTitle: '변경 할 닉네임',
                 validator: (val) {},
                 onchanged: (value) {
-                  if (value.length >= 1) {
+                  if (value.isNotEmpty) {
                     setState(() {
                       isVisible = true;
                     });

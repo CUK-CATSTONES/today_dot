@@ -80,7 +80,10 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
             child: Text(
               "저장",
               style: TextStyle(
-                  color: isVisible == true ? Colors.black : Colors.grey),
+                color: isVisible == true ? Colors.black : Colors.grey,
+                fontFamily: 'Gmarket',
+                // fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -97,7 +100,14 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
             child: Align(
               child: Column(
                 children: [
-                  const Text('지금 기분이 어떤가요?', style: TextStyle(fontSize: 28.0)),
+                  const SizedBox(height: 10),
+                  const Text(
+                    '지금 기분이 어때요?',
+                    style: TextStyle(
+                      fontSize: 28.0,
+                      fontFamily: 'cafe24',
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   Image.asset(
                     currentEmoji,
