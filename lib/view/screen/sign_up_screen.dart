@@ -29,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     bool isPWCorrect = false;
     bool isNameCorrect = false;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: const Color(0xffFFFDF9),
         elevation: 0,
@@ -39,17 +39,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
           FocusScope.of(context).unfocus(); // 다른 곳을 누르면 keyboard가 사라진다.
         },
         child: Container(
+          // height: double.infinity,
           color: const Color(0xffFFFDF9),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // const Text(
-              //   '회원가입',
-              //   style: TextStyle(
-              //       fontSize: 30.0,
-              //       fontFamily: 'cafe24',
-              //       fontWeight: FontWeight.bold),
-              // ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -58,6 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     key: _formKey,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: ListView(
+                      shrinkWrap: true,
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(height: 50),
