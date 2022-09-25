@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.settings),
             color: const Color(0xff121212),
             onPressed: () {
-              Get.toNamed('/setting');
+              Get.offAllNamed('/setting');
             },
           ),
         ],

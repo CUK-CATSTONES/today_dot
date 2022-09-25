@@ -156,13 +156,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       (isEmailCorrect == true &&
                           isPWCorrect == true &&
                           isNameCorrect == true)) {
-                    print('132');
                     Map<String, dynamic> map = {
                       'email': signUpController.email,
                       'pw': signUpController.pwd,
                       'name': signUpController.name,
                     };
-                    print('139');
                     await _changeNameController.setName(signUpController.name);
                     await signUpController.signUp(map);
                   } else {

@@ -72,7 +72,7 @@ class _ChangeNameScreenState extends State<ChangeNameScreen> {
                   onTap: () async {
                     await _changeNameController.setName(userName.text);
                     // 저장하는거
-                    Get.toNamed('/home');
+                    Get.offAllNamed('/home');
                   }),
             ),
           ],

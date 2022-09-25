@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/model/asset/status.dart';
 import 'package:today_dot/model/repository/auth_repository.dart';
-import 'package:today_dot/view_model/user_controller.dart';
 
 class SignInController extends GetxController {
   late String email;
@@ -13,7 +12,6 @@ class SignInController extends GetxController {
     print('signIn map pw: ${map['pw']}');
     Get.defaultDialog(
       barrierDismissible: false,
-      title: '로그인하는 중..',
       backgroundColor: const Color.fromARGB(0, 255, 255, 255),
       content: const CircularProgressIndicator.adaptive(
         backgroundColor: Colors.white,

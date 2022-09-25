@@ -83,9 +83,7 @@ class SignInScreen extends StatelessWidget {
                     bgColor: const Color(0xff92B4EC),
                     label: '로그인',
                     onTap: () async {
-                      print('75');
                       if (validatedEmail && validatedPWD) {
-                        print('77');
                         print('userEmail.text: ${userEmail.text}');
                         print('userPassword.text: ${userPassword.text}');
                         Map<String, dynamic> map = {

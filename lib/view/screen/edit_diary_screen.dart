@@ -52,7 +52,7 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
         backgroundColor: const Color(0xFFFFFDF9),
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Get.toNamed('/home'),
+          onPressed: () => Get.offAllNamed('/home'),
           icon: const Icon(Icons.arrow_back_ios),
           color: Colors.black,
         ),

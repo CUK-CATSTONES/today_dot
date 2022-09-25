@@ -57,22 +57,16 @@ class AuthRepository {
   /// 위 경우 이외의 경우
   static Future<Status> signUp(String email, String pwd) async {
     try {
-      print('60');
-
       /// email과 pwd 등의 user 정보를 firestore에 저장한다.
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: pwd,
       );
-      print('65 email: ${email.toString()}');
-      print('66 pwd: ${pwd.toString()}');
     } on FirebaseAuthException catch (e) {
-      print('68 result: $e');
       switch (e.code) {
         case 'email-already-in-use':
           return Status.emailAlreadyExist;
         case 'invalid-email':
-          print('73 invalid email');
           return Status.invalidEmail;
         default:
           return Status.error;
@@ -103,7 +97,6 @@ class AuthRepository {
           .get();
       // list = await FirebaseAuth.instance.fetchSignInMethodsForEmail(id);
     } on FirebaseAuthException catch (e) {
-      print('auth_repo 90 $e');
       return e.code;
     }
     if (list.isEmpty) {

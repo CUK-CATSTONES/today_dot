@@ -28,7 +28,7 @@ class SettingScreen extends StatelessWidget {
             icon: const Icon(Icons.close),
             color: Colors.black,
             onPressed: () {
-              Get.toNamed('/home');
+              Get.offAllNamed('/home');
             },
           )
         ],
@@ -39,7 +39,6 @@ class SettingScreen extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           width: 343,
           height: 123,
-          // color: Colors.black,
           margin: const EdgeInsets.fromLTRB(25, 60, 25, 0),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),

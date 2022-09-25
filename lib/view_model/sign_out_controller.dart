@@ -8,7 +8,6 @@ class SignOutController extends GetxController {
   Future signOut() async {
     Get.defaultDialog(
       barrierDismissible: false,
-      title: '로그아웃 하는중',
       backgroundColor: const Color.fromARGB(0, 255, 255, 255),
       content: const CircularProgressIndicator.adaptive(
         backgroundColor: Colors.white,
@@ -21,7 +20,6 @@ class SignOutController extends GetxController {
         Get.snackbar('로그아웃 실패😨', '로그아웃에 실패했습니다.');
       });
     } else {
-      Get.snackbar('로그아웃 완료!', '로그아웃되었습니다.');
       Get.offAllNamed('/');
     }
     print(status);
