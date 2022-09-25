@@ -8,6 +8,7 @@ class SignOutController extends GetxController {
   Future signOut() async {
     Get.defaultDialog(
       barrierDismissible: false,
+      title: '',
       backgroundColor: const Color.fromARGB(0, 255, 255, 255),
       content: const CircularProgressIndicator.adaptive(
         backgroundColor: Colors.white,

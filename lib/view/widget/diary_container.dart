@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ContainerWidget extends StatelessWidget {
   final Function()? onTapFunction;
@@ -25,8 +26,8 @@ class ContainerWidget extends StatelessWidget {
       onTap: onTapFunction,
       child: Center(
         child: Container(
-          width: 335,
-          height: 60,
+          width: 335.w,
+          height: 60.h,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: const Color(0xffFFFFFF),

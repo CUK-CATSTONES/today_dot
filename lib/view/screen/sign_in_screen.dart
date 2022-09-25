@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
 import 'package:today_dot/view/widget/button_widget.dart';
 import 'package:today_dot/view_model/sign_in_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -34,12 +35,12 @@ class SignInScreen extends StatelessWidget {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(8, 8, 8, 40),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 40),
                   child: Text(
                     '오늘의 마침표.',
                     style: TextStyle(
-                      fontSize: 32.0,
+                      fontSize: 32.0.sp,
                       fontFamily: 'cafe24',
                       fontWeight: FontWeight.bold,
                     ),
@@ -74,7 +75,6 @@ class SignInScreen extends StatelessWidget {
                         return '비밀번호를 입력하세요.';
                       }
                       validatedPWD = true;
-                      // signInController.pwd = value;
                       return null;
                     },
                   ),
@@ -103,11 +103,11 @@ class SignInScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         '회원이 아니신가요?',
                         style: TextStyle(
-                          fontSize: 14.0,
-                          color: Color(0xff949494),
+                          fontSize: 14.0.sp,
+                          color: const Color(0xff949494),
                           fontFamily: 'Gmarket',
                         ),
                       ),

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/model/VO/diary_vo.dart';
 import 'package:today_dot/model/VO/user_vo.dart';
@@ -25,11 +24,9 @@ class EditDiaryController extends GetxController {
   late CollectionReference userData;
 
   Future addDiaryToDB(Map<String, dynamic> map) async {
-    print('17');
     print(map['emoji']);
     print(map['content']);
     DiaryRepository diaryRepository = DiaryRepository();
-    print('21');
     map.addAll({'uid': FirebaseAuth.instance.currentUser!.uid});
     print('map::: $map');
     diaryRepository
@@ -63,14 +60,6 @@ class EditDiaryController extends GetxController {
       }
     });
   }
-
-  /*
-  FirebaseFirestore.instance
-          .collection(collection1)
-          .doc(uid)
-          .collection(collection2)
-          */
-
   Future readDiaryToDB() async {
     try {
       CollectionReference userDiary = FirebaseFirestore.instance

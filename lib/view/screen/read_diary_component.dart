@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view_model/edit_diary_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReadDiaryComponent extends StatelessWidget {
   final _editDiaryController = Get.put(EditDiaryController());
@@ -23,29 +24,29 @@ class ReadDiaryComponent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          width: 339,
-          height: 168,
+          width: 339.w,
+          height: 168.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
             color: const Color(0x4dC4DDFF),
           ),
           child: Column(
             children: [
-              const SizedBox(height: 7),
+              SizedBox(height: 7.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      const SizedBox(
-                        width: 20,
+                      SizedBox(
+                        width: 20.w,
                       ),
                       Text(
                         date,
                         textAlign: TextAlign.left,
-                        style: const TextStyle(
-                          color: Color(0xff979797),
-                          fontSize: 15,
+                        style: TextStyle(
+                          color: const Color(0xff979797),
+                          fontSize: 15.sp,
                           fontFamily: 'cafe24',
                         ),
                       ),
@@ -67,7 +68,7 @@ class ReadDiaryComponent extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                                 child: Container(
-                                  height: 140,
+                                  height: 140.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(16),
                                     color: Colors.white,
@@ -83,10 +84,10 @@ class ReadDiaryComponent extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Text(
+                                            Text(
                                               '일기를 삭제할까요?',
                                               style: TextStyle(
-                                                  fontSize: 16,
+                                                  fontSize: 16.sp,
                                                   fontFamily: 'nexon',
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -94,9 +95,9 @@ class ReadDiaryComponent extends StatelessWidget {
                                               onPressed: () {
                                                 Get.back();
                                               },
-                                              icon: const Icon(
+                                              icon: Icon(
                                                 Icons.close,
-                                                size: 25,
+                                                size: 25.sp,
                                               ),
                                             ),
                                           ],
@@ -125,13 +126,6 @@ class ReadDiaryComponent extends StatelessWidget {
                                                     .deleteUserInfoInDB(id);
                                                 Get.back();
                                               },
-                                              // style: ElevatedButton.styleFrom(
-                                              //   shape: RoundedRectangleBorder(
-                                              //     borderRadius:
-                                              //         BorderRadius.circular(
-                                              //             10.0),
-                                              //   ),
-                                              // ),
                                               child: const Text(
                                                 '확인',
                                                 style: TextStyle(
@@ -155,11 +149,11 @@ class ReadDiaryComponent extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4.h),
               Row(
                 children: [
-                  const SizedBox(width: 13),
-                  Image.asset(emoji, width: 60, height: 60),
+                  SizedBox(width: 13.w),
+                  Image.asset(emoji, width: 60.w, height: 60.h),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 13.0),
@@ -178,7 +172,7 @@ class ReadDiaryComponent extends StatelessWidget {
           ),
         ),
         Container(
-          height: 20,
+          height: 20.h,
         ),
       ],
     );

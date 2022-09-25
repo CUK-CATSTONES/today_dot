@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view_model/sign_out_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -11,12 +12,12 @@ class SettingScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        leadingWidth: 2,
-        title: const Text(
+        leadingWidth: 2.h,
+        title: Text(
           '  Setting',
           style: TextStyle(
             color: Colors.black,
-            fontSize: 25,
+            fontSize: 25.sp,
             fontFamily: 'Gmarket',
           ),
         ),
@@ -24,7 +25,7 @@ class SettingScreen extends StatelessWidget {
         elevation: 0,
         actions: <Widget>[
           IconButton(
-            iconSize: 40,
+            iconSize: 40.sp,
             icon: const Icon(Icons.close),
             color: Colors.black,
             onPressed: () {
@@ -33,17 +34,19 @@ class SettingScreen extends StatelessWidget {
           )
         ],
       ),
+      resizeToAvoidBottomInset: false,
       body: Container(
         color: const Color(0xFFFFFDF9),
         child: Container(
-          padding: const EdgeInsets.all(12),
-          width: 343,
-          height: 123,
-          margin: const EdgeInsets.fromLTRB(25, 60, 25, 0),
+          padding: EdgeInsets.fromLTRB(10.r, 8.r, 0.r, 0.r),
+          width: 343.w,
+          height: 123.h,
+          // color: Colors.black,
+          margin: EdgeInsets.fromLTRB(25.r, 60.r, 25.r, 0.r),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             border: Border.all(
-              width: 1,
+              width: 1.w,
             ),
           ),
           child: Column(
@@ -54,9 +57,9 @@ class SettingScreen extends StatelessWidget {
                     onPressed: () {
                       Get.toNamed('/changeName');
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.edit,
-                      size: 30,
+                      size: 30.sp,
                     ),
                   ),
                   TextButton(
@@ -67,11 +70,11 @@ class SettingScreen extends StatelessWidget {
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
                     ),
-                    child: const Text(
+                    child: Text(
                       '닉네임변경',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 22,
+                        fontSize: 22.sp,
                         fontFamily: 'nexon',
                         fontWeight: FontWeight.bold,
                       ),
@@ -85,9 +88,9 @@ class SettingScreen extends StatelessWidget {
                     onPressed: () async {
                       await signOutController.signOut();
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.logout,
-                      size: 35,
+                      size: 35.sp,
                     ),
                   ),
                   TextButton(
@@ -98,11 +101,11 @@ class SettingScreen extends StatelessWidget {
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
                     ),
-                    child: const Text(
+                    child: Text(
                       '로그아웃',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 22,
+                        fontSize: 22.sp,
                         fontFamily: 'nexon',
                         fontWeight: FontWeight.bold,
                       ),

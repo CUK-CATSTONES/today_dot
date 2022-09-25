@@ -8,14 +8,12 @@ import '../asset/status.dart';
 import 'dart:io';
 
 class DiaryRepository {
-  // final auth = FirebaseAuth.instance;
   List<String> docIDs = [];
   String date = '';
   String content = '';
   String emoji = '';
   String uid = '';
   String docID = '';
-  // late String data;
 
   DiaryRepository();
 
@@ -64,7 +62,6 @@ class DiaryRepository {
   }
 
   Future readDiary() async {
-    DocumentSnapshot document;
     try {
       CollectionReference userDiary = FirebaseFirestore.instance
           .collection(collection1)

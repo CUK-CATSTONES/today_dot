@@ -21,14 +21,6 @@ class UserVO {
         email = user['email'],
         name = user['name'];
 
-  Map<String, dynamic> toFirestore() {
-    return {
-      if (uid != null) "id": uid,
-      if (email != null) "email": email,
-      if (name != null) "name": name,
-    };
-  }
-
   @override
   String toString() {
     return '{uid:$uid, email:$email, name:$name}';

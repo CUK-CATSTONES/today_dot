@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:today_dot/view_model/sign_up_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String? hintText;
@@ -33,14 +32,13 @@ class TextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _signUpController = Get.put(SignUpController());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           fieldTitle ?? '',
-          style: const TextStyle(
-            fontSize: 16.0,
+          style: TextStyle(
+            fontSize: 16.0.sp,
             color: Colors.black,
             fontFamily: 'Gmarket',
           ),
@@ -52,13 +50,9 @@ class TextFieldWidget extends StatelessWidget {
             style: const TextStyle(
               fontFamily: 'Gmarket',
             ),
-            // autovalidateMode: AutovalidateMode.onUserInteraction,
             autofocus: fieldTitle!.contains('아이디') ? true : false,
             onTap: onTap,
             onChanged: onchanged,
-            // keyboardType: fieldTitle!.contains('아이디')
-            //     ? TextInputType.emailAddress
-            //     : TextInputType.text,
             validator: validator,
             controller: controller,
             maxLines: maxLine ?? 1,
@@ -80,18 +74,18 @@ class TextFieldWidget extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(borderRadius ?? 5.0),
                 ),
-                borderSide: const BorderSide(
-                  color: Color(0xff92B4EC),
-                  width: 2.0,
+                borderSide: BorderSide(
+                  color: const Color(0xff92B4EC),
+                  width: 2.0.w,
                 ),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(borderRadius ?? 5.0),
                 ),
-                borderSide: const BorderSide(
-                  color: Color(0xff92B4EC),
-                  width: 2.0,
+                borderSide: BorderSide(
+                  color: const Color(0xff92B4EC),
+                  width: 2.0.w,
                 ),
               ),
               errorBorder: const OutlineInputBorder(
@@ -106,7 +100,7 @@ class TextFieldWidget extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 20.h),
       ],
     );
   }

@@ -14,7 +14,6 @@ class UserController extends GetxController {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     userRepository.addUserInfoUID(map);
     userRepository.addUserInfo(map['email'], map['name']).then((value) {
-      print('15: $value');
       switch (value) {
         case Status.error:
           print('회원가입 에러남;;;');
@@ -50,18 +49,6 @@ class UserController extends GetxController {
     }
   }
 
-  /*
-  var collection = FirebaseFirestore.instance.collection('users');
-collection.doc('some_id').snapshots().listen((docSnapshot) {
-  if (docSnapshot.exists) {
-    Map<String, dynamic> data = docSnapshot.data()!;
-
-    // You can then retrieve the value from the Map like this:
-    var name = data['name'];
-  }
-});
-*/
-
   Future<String?> readUserName() async {
     UserRepository userRepository = UserRepository();
     final uid = FirebaseAuth.instance.currentUser?.uid;
@@ -75,7 +62,6 @@ collection.doc('some_id').snapshots().listen((docSnapshot) {
         if (docSnapshot.exists) {
           Map<String, dynamic> data = docSnapshot.data()!;
           userName = await data['name'];
-          // print(userName.runtimeType);
         } else {
           userName = '게스트';
         }

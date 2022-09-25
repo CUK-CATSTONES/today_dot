@@ -4,6 +4,7 @@ import 'package:today_dot/view/screen/read_diary_component.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view_model/user_controller.dart';
 import 'package:today_dot/view_model/change_name_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         actions: <Widget>[
           IconButton(
-            iconSize: 30,
+            iconSize: 30.sp,
             icon: const Icon(Icons.settings),
             color: const Color(0xff121212),
             onPressed: () {
@@ -64,28 +65,28 @@ class _HomeScreenState extends State<HomeScreen> {
                           } else {
                             return Text(
                               '${snapshot.data.toString()}님,',
-                              style: const TextStyle(
-                                fontSize: 22,
+                              style: TextStyle(
+                                fontSize: 22.sp,
                                 fontFamily: 'cafe24',
                               ),
                             );
                           }
                         }),
-                    const SizedBox(height: 10),
-                    const Text.rich(
+                    SizedBox(height: 10.h),
+                    Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(
                             text: '지금 당신의 ',
                             style: TextStyle(
-                              fontSize: 23,
+                              fontSize: 23.sp,
                               fontFamily: 'cafe24',
                             ),
                           ),
                           TextSpan(
                             text: '마침표',
                             style: TextStyle(
-                              fontSize: 23,
+                              fontSize: 23.sp,
                               fontFamily: 'cafe24',
                               fontWeight: FontWeight.bold,
                             ),
@@ -93,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           TextSpan(
                             text: '는 어떤가요?',
                             style: TextStyle(
-                              fontSize: 23,
+                              fontSize: 23.sp,
                               fontFamily: 'cafe24',
                             ),
                           ),
@@ -128,8 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
+                            children: [
+                              const Text(
                                 '오늘 하루 순간순간 느낀 감정을 기록해보세요 :)',
                                 style: TextStyle(
                                   // fontSize: width * 0.08,
@@ -137,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(height: 20),
+                              SizedBox(height: 20.h),
                             ],
                           ),
                         );
