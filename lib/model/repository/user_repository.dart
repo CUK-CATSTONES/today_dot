@@ -12,54 +12,22 @@ class UserRepository {
     map.addAll({'uid': FirebaseAuth.instance.currentUser!.uid});
     user = UserVO.fromMap(map);
   }
-  /*
-  Firestore.instance.collection(colName).add({
-      fnName: name,
-      fnDescription: description,
-      fnDatetime: Timestamp.now(),
-    });
-    */
 
   /// user 정보 생성
   Future addUserInfo(String userEmail, String userName) async {
     try {
       Map<String, dynamic>? map = user?.toJson();
-      //       CollectionReference userDiary = FirebaseFirestore.instance
-      //     .collection(collection1)
-      //     .doc(uid)
-      //     .collection(collection2);
-      // var userID = userDiary.doc().id;
-
-      /*      await userDiary.doc(userID).set({
-        'date': formattedDate,
-        'content': content,
-        'emoji': emoji,
-        'uid': uid,
-        'docID': userID
-      });
-      */
       CollectionReference userData =
           FirebaseFirestore.instance.collection(collection);
-      // await userData.add({'email': userEmail, 'name': userName});
       var userID = FirebaseAuth.instance.currentUser!.uid;
       await userData
           .doc(userID)
           .set({'email': userEmail, 'name': userName, 'uid': userID});
     } catch (e) {
-      print('35: $e');
       return Status.error;
     }
     return Status.success;
   }
-
-  /*
-  db.collection("users").get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-        var id = doc.id; // randomly generated document ID
-        var data = doc.data(); // key-value pairs from the document
-    });
-});
-*/
 
   /// user 정보 가져오기
   Future readUserInfo(String uid) async {

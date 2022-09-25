@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/model/asset/status.dart';
 import 'package:today_dot/model/repository/auth_repository.dart';
-import 'package:today_dot/view_model/user_controller.dart';
 
 class SignInController extends GetxController {
   late String email;
@@ -26,7 +25,6 @@ class SignInController extends GetxController {
         switch (value) {
           case Status.signIn:
             Get.back();
-            // Get.snackbar('로그인 완료', '환영해요!');
             Get.offAllNamed('/home');
             break;
           case Status.userNotFound:
@@ -40,25 +38,5 @@ class SignInController extends GetxController {
         }
       },
     );
-
-    // AuthRepository.emailAndpwd(email: email, pwd: pw)
-    //     .signIn()
-    //     .then((result) async {
-    //   switch (result) {
-    //     case Status.success:
-    //       Get.back();
-    //       await UserController().readUserInfoToDB();
-    //       print('success!!!');
-    //       break;
-    //     case Status.userNotFound:
-    //       Get.back();
-    //       Get.snackbar('로그인 실패', '해당 아이디 정보가 없어요.');
-    //       break;
-    //     default:
-    //       Get.back();
-    //       Get.snackbar('로그인 실패', '다시 시도해주세요.');
-    //       break;
-    //   }
-    // });
   }
 }

@@ -11,6 +11,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:today_dot/view/screen/sign_up_screen.dart';
 import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,35 +36,42 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      initialRoute: '/',
-      getPages: [
-        GetPage(name: '/', page: () => const SignInScreen()),
-        GetPage(name: '/signUp', page: () => const SignUpScreen()),
-        GetPage(name: '/home', page: () => const HomeScreen()),
-        GetPage(name: '/setting', page: () => const SettingScreen()),
-        GetPage(name: '/changeName', page: () => const ChangeNameScreen()),
-        GetPage(name: '/editDiary', page: () => const EditDiaryScreen()),
-      ],
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
-      ],
-      supportedLocales: const [
-        Locale('ko', 'KR'),
-      ],
-      locale: const Locale('ko'),
-      theme: ThemeData(
-          primaryColor: const Color(0xff92B4EC),
-          inputDecorationTheme: const InputDecorationTheme(
-            border: OutlineInputBorder(),
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff92B4EC),
-                  onSurface: const Color(0xff92B4EC),
-                  textStyle: const TextStyle(color: Colors.black)))),
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+      return GetMaterialApp(
+        initialRoute: '/',
+        getPages: [
+          GetPage(name: '/', page: () => const SignInScreen()),
+          GetPage(name: '/signUp', page: () => const SignUpScreen()),
+          GetPage(name: '/home', page: () => const HomeScreen()),
+          GetPage(name: '/setting', page: () => const SettingScreen()),
+          GetPage(name: '/changeName', page: () => const ChangeNameScreen()),
+          GetPage(name: '/editDiary', page: () => const EditDiaryScreen()),
+        ],
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: const [
+          Locale('ko', 'KR'),
+        ],
+        locale: const Locale('ko'),
+        theme: ThemeData(
+            primaryColor: const Color(0xff92B4EC),
+            inputDecorationTheme: const InputDecorationTheme(
+              border: OutlineInputBorder(),
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                    primary: const Color(0xff92B4EC),
+                    onSurface: const Color(0xff92B4EC),
+                    textStyle: const TextStyle(color: Colors.black)))),
+      );
+      },
     );
   }
 }

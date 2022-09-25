@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:today_dot/view/widget/button_widget.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
 import 'package:today_dot/view_model/edit_diary_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditDiaryScreen extends StatefulWidget {
   const EditDiaryScreen({Key? key}) : super(key: key);
@@ -29,8 +28,6 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
   String defaultEmoji = 'images/default.png';
   late int pickEmojiIndex;
   late ScrollController _scrollController;
-
-  // ScrollController _scrollController = ScrollController();
 
   TextEditingController content = TextEditingController();
   EditDiaryController editcontroller = EditDiaryController();
@@ -73,8 +70,8 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                 null;
             },
             style: TextButton.styleFrom(
-              textStyle: const TextStyle(
-                fontSize: 20,
+              textStyle: TextStyle(
+                fontSize: 20.sp,
               ),
             ),
             child: Text(
@@ -82,7 +79,6 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
               style: TextStyle(
                 color: isVisible == true ? Colors.black : Colors.grey,
                 fontFamily: 'Gmarket',
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -96,30 +92,29 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
           controller: _scrollController,
           child: Container(
             color: const Color(0xFFFFFDF9),
-            // color: Colors.black,
             child: Align(
               child: Column(
                 children: [
-                  const SizedBox(height: 10),
-                  const Text(
+                  SizedBox(height: 10.h),
+                  Text(
                     '지금 기분이 어때요?',
                     style: TextStyle(
-                      fontSize: 28.0,
+                      fontSize: 28.0.sp,
                       fontFamily: 'cafe24',
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Image.asset(
                     currentEmoji,
-                    width: 70,
-                    height: 70,
+                    width: 70.w,
+                    height: 70.h,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 30.0, horizontal: 20.0),
                     child: Container(
                       width: double.infinity,
-                      height: 90,
+                      height: 90.h,
                       decoration: BoxDecoration(
                         color: const Color(0x4dC4DDFF),
                         borderRadius: BorderRadius.circular(15.0),
@@ -149,7 +144,7 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                                 Get.back();
                               },
                               child: Image.asset(emojiList[index],
-                                  width: 40, height: 40),
+                                  width: 40.w, height: 40.h),
                             ),
                           ),
                         ),
@@ -177,8 +172,6 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                         },
                         onchanged: (value) {
                           if (value.contains('.') || value.contains('...')) {
-                            print('contain!!');
-                            // textFocus.unfocus();
                             setState(() {
                               isVisible = true;
                             });

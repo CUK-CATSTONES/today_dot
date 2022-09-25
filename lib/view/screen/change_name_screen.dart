@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
-
 import '../../view_model/change_name_controller.dart';
 import '../widget/button_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChangeNameScreen extends StatefulWidget {
   const ChangeNameScreen({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _ChangeNameScreenState extends State<ChangeNameScreen> {
         elevation: 0,
         actions: <Widget>[
           IconButton(
-            iconSize: 40,
+            iconSize: 40.sp,
             icon: const Icon(Icons.close),
             color: Colors.black,
             onPressed: () {
@@ -40,10 +40,10 @@ class _ChangeNameScreenState extends State<ChangeNameScreen> {
         color: const Color(0xFFFFFDF9),
         child: Column(
           children: [
-            const Text(
+            Text(
               '닉네임 변경',
               style: TextStyle(
-                  fontSize: 32.0,
+                  fontSize: 32.0.sp,
                   fontFamily: 'cafe24',
                   fontWeight: FontWeight.bold),
             ),

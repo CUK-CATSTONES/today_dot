@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:today_dot/model/repository/impl/shared_preferences_impl.dart';
@@ -20,9 +19,6 @@ class ChangeNameController extends SharedPreferencesImpl {
 
   Future<String> readString(String name) async {
     String? username = await _prefs.getString('name') ?? '테스트';
-
-    // print('aaaaaaa  :: ${_prefs.getString('name')}');
-    // print('ddddd:::: ${_userController.readUserName().toString()}');
     return username;
   }
 
@@ -41,11 +37,6 @@ class ChangeNameController extends SharedPreferencesImpl {
       if (result) {
         getName();
       } else {
-        /* ScaffoldMessenger.of().showSnackBar( // 뭘 적어야하죠?
-            SnackBar(
-              content: Text('저장 실패ㅠ'),
-              duration: Duration(seconds: 5),
-            ),);*/
         return null;
       }
     });

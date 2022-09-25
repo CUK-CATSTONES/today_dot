@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:today_dot/model/asset/status.dart';
 import 'package:today_dot/model/repository/auth_repository.dart';
-import 'package:today_dot/view_model/sign_out_controller.dart';
 import 'package:today_dot/view_model/user_controller.dart';
 
 class SignUpController extends GetxController {
@@ -18,31 +17,6 @@ class SignUpController extends GetxController {
   /// 2. validator 하나씩만 되게끔
 
   /// email을 입력하고 중복확인 버튼을 눌렀을때
-  // Future checkDuplicatedID() async {
-  //   await AuthRepository.id(id: email).checkEmailExist().then(
-  //     (value) {
-  //       print('---');
-  //       print(value);
-
-  //       switch (value) {
-  //         case 'success':
-  //           isDuplicateID = false; //중복되지 않음
-  //           Get.snackbar('사용가능!', '사용 가능한 아이디 입니다.');
-  //           break;
-  //         case 'alreadyExist':
-  //           isDuplicateID = true; //중복됨
-  //           Get.snackbar('사용불가', '이미 동일한 아이디가 존재합니다!!');
-  //           break;
-  //         case 'invalid-email':
-  //           Get.snackbar('invalid', 'invalid-email');
-  //           break;
-  //         default:
-  //           isDuplicateID = true;
-  //           break;
-  //       }
-  //     },
-  //   );
-  // }
 
   Future signUp(Map<String, dynamic> map) async {
     print('map email: ${map['email']}');
@@ -57,7 +31,6 @@ class SignUpController extends GetxController {
       ),
     );
     AuthRepository.signUp(map['email'], map['pw']).then((value) async {
-      print('48 $value');
       switch (value) {
         case Status.emailAlreadyExist:
           Get.back(); // dialog를 끔

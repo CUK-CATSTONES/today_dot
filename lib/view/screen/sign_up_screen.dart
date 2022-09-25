@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:today_dot/view/widget/textfield_widget.dart';
 import 'package:today_dot/view_model/change_name_controller.dart';
 import 'package:today_dot/view_model/sign_up_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -55,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       shrinkWrap: true,
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 50),
+                        SizedBox(height: 50.h),
                         Row(
                           children: [
                             Expanded(
@@ -77,31 +78,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 hintText: '이메일을 입력하세요!',
                               ),
                             ),
-                            const SizedBox(width: 5.0),
-                            const Text(
+                            SizedBox(width: 5.0.w),
+                            Text(
                               '@gmail.com',
                               style: TextStyle(
-                                  fontSize: 20.0, fontFamily: 'gMarket'),
+                                  fontSize: 20.0.sp, fontFamily: 'gMarket'),
                             ),
                           ],
                         ),
-                        // SizedBox(
-                        //   width: double.infinity,
-                        //   height: 50.0,
-                        //   child: CupertinoButton(
-                        //     padding: const EdgeInsets.all(0),
-                        //     onPressed: () async {
-                        //       print('이메일 인증 버튼 클릭');
-                        //       await signUpController.sendEmailVerification();
-                        //     },
-                        //     color: const Color(0xffD6E5FA),
-                        //     child: const Text(
-                        //       "이메일 인증",
-                        //       style: TextStyle(color: Colors.black),
-                        //     ),
-                        //   ),
-                        // ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20.h),
                         TextFieldWidget(
                           controller: userPassword,
                           validator: (val) {
@@ -125,7 +110,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               isPWCorrect = false;
                               return '비밀번호가 일치하지 않아요';
                             }
-                            // signUpController.pwd = val;
                             isPWCorrect = true;
                             return null;
                           },
@@ -156,13 +140,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       (isEmailCorrect == true &&
                           isPWCorrect == true &&
                           isNameCorrect == true)) {
-                    print('132');
                     Map<String, dynamic> map = {
                       'email': signUpController.email,
                       'pw': signUpController.pwd,
                       'name': signUpController.name,
                     };
-                    print('139');
                     await _changeNameController.setName(signUpController.name);
                     await signUpController.signUp(map);
                   } else {
@@ -171,15 +153,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
                 child: Container(
                   width: double.infinity,
-                  height: 60.0,
+                  height: 60.0.h,
                   decoration: const BoxDecoration(
                     color: Color(0xff92B4EC),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       '회원가입',
                       style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: 20.0.sp,
                           color: Colors.black,
                           fontFamily: 'gMarket'),
                     ),
