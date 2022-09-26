@@ -5,6 +5,7 @@ import 'package:today_dot/model/asset/status.dart';
 import 'package:today_dot/view/screen/change_name_screen.dart';
 import 'package:today_dot/view/screen/edit_diary_screen.dart';
 import 'package:today_dot/view/screen/home_screen.dart';
+import 'package:today_dot/view/screen/license.dart';
 import 'package:today_dot/view/screen/setting_screen.dart';
 import 'package:today_dot/view/screen/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/setting', page: () => const SettingScreen()),
           GetPage(name: '/changeName', page: () => const ChangeNameScreen()),
           GetPage(name: '/editDiary', page: () => const EditDiaryScreen()),
+          GetPage(name: '/license', page: () => const LicenseScreen()),
         ],
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
