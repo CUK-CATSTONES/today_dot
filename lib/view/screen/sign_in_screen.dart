@@ -5,9 +5,14 @@ import 'package:today_dot/view/widget/button_widget.dart';
 import 'package:today_dot/view_model/sign_in_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     final signInController = Get.put(SignInController());

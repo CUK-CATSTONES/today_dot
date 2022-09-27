@@ -5,7 +5,7 @@ import 'package:today_dot/model/asset/status.dart';
 import 'package:today_dot/view/screen/change_name_screen.dart';
 import 'package:today_dot/view/screen/edit_diary_screen.dart';
 import 'package:today_dot/view/screen/home_screen.dart';
-import 'package:today_dot/view/screen/license.dart';
+import 'package:today_dot/view/screen/license_screen.dart';
 import 'package:today_dot/view/screen/setting_screen.dart';
 import 'package:today_dot/view/screen/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
