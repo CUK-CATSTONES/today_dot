@@ -16,10 +16,8 @@ class UserController extends GetxController {
     userRepository.addUserInfo(map['email'], map['name']).then((value) {
       switch (value) {
         case Status.error:
-          print('회원가입 에러남;;;');
           break;
         case Status.success:
-          print('회원가입 성공임');
           break;
       }
     });
@@ -32,16 +30,13 @@ class UserController extends GetxController {
       userRepository.readUserInfo(uid).then((value) {
         switch (value) {
           case Status.error:
-            print('user controller 29');
             Get.offAllNamed('/');
             break;
           case Status.userNotFound:
-            print('user controller 33');
             Get.offAllNamed('/');
             break;
           case Status.success:
             user = userRepository.user;
-            print('user controller 44');
             Get.offAllNamed('/home');
             break;
         }

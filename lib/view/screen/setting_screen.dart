@@ -41,7 +41,7 @@ class SettingScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(10.r, 8.r, 0.r, 8.r),
+              padding: EdgeInsets.fromLTRB(10.r, 12.r, 0.r, 8.r),
               width: 343.w,
               height: 123.h,
               // color: Colors.black,
@@ -60,6 +60,7 @@ class SettingScreen extends StatelessWidget {
                         onPressed: () {
                           Get.toNamed('/changeName');
                         },
+                        padding: EdgeInsets.all(0),
                         icon: Icon(
                           Icons.edit,
                           size: 30.sp,
@@ -85,15 +86,17 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  SizedBox(height: 5.h),
                   Row(
                     children: [
                       IconButton(
                         onPressed: () async {
                           await signOutController.signOut();
                         },
+                        padding: EdgeInsets.all(0),
                         icon: Icon(
                           Icons.logout,
-                          size: 35.sp,
+                          size: 30.sp,
                         ),
                       ),
                       TextButton(

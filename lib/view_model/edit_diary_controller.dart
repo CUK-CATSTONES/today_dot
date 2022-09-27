@@ -24,21 +24,16 @@ class EditDiaryController extends GetxController {
   late CollectionReference userData;
 
   Future addDiaryToDB(Map<String, dynamic> map) async {
-    print(map['emoji']);
-    print(map['content']);
     DiaryRepository diaryRepository = DiaryRepository();
     map.addAll({'uid': FirebaseAuth.instance.currentUser!.uid});
     print('map::: $map');
     diaryRepository
         .addDiary(map['content'], map['emoji'], map['uid'])
         .then((value) {
-      print(value);
       switch (value) {
         case Status.error:
-          print('저장에러');
           break;
         case Status.success:
-          print('저장성공');
           Get.snackbar('저장 완료!', '일기가 등록되었습니다.');
           Get.offAllNamed('/home');
           break;
@@ -51,15 +46,14 @@ class EditDiaryController extends GetxController {
     await diaryRepository.deleteDiary(id).then((result) {
       switch (result) {
         case Status.error:
-          print('삭제 에러');
           break;
         case Status.success:
           Get.snackbar('삭제 완료!', '일기가 삭제되었어요');
-          print('삭제 완료!!');
           break;
       }
     });
   }
+
   Future readDiaryToDB() async {
     try {
       CollectionReference userDiary = FirebaseFirestore.instance
@@ -74,14 +68,10 @@ class EditDiaryController extends GetxController {
         await userDiary.doc(documentID).get().then((DocumentSnapshot data) {
           var diaryContent = data['content'];
           content = diaryContent;
-          print('diaryContent: $content');
           var diaryEmoji = data['emoji'];
           emoji = diaryEmoji;
-          print('diaryEmoji: $emoji');
           var diaryDate = data['date'];
           date = diaryDate;
-          print('diaryDate: $date');
-          print('--');
           update();
         });
       }
@@ -89,12 +79,6 @@ class EditDiaryController extends GetxController {
       print(e);
       return Status.error;
     }
-    print('성공시');
-    print('-----');
-    print(docIDs);
-    print(content);
-    print(emoji);
-    print(date);
 
     return Status.success;
   }

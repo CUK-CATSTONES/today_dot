@@ -37,6 +37,12 @@ class LicenseScreen extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(20, 10, 10, 0),
                   child: Text(
                     '''
+PUBLISHED BY 
+https://github.com/Cat-JiYoung 
+https://github.com/sedah2102
+
+Image license for https://www.flaticon.com/ Valeria
+
 MIT License
 
 Copyright (c) 2019 Jonny Borges

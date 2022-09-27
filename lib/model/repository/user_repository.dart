@@ -36,7 +36,6 @@ class UserRepository {
       CollectionReference userData =
           FirebaseFirestore.instance.collection(collection);
       document = await userData.doc(uid).get();
-      print('document is...$document');
     } catch (e) {
       print(e);
       return Status.error;
