@@ -53,7 +53,6 @@ class DiaryRepository {
           .collection(collection1)
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection(collection2);
-      print('userDiary: $userDiary');
       await userDiary.doc(id).delete();
     } catch (e) {
       return Status.error;
@@ -70,7 +69,6 @@ class DiaryRepository {
       userDiary.get().then((snapshot) {
         for (var doc in snapshot.docs) {
           final document = doc.data();
-          print('document: $document');
           final content = doc.get('content');
           final date = doc.get('date');
           final emoji = doc.get('emoji');

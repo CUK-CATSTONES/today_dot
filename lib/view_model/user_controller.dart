@@ -50,7 +50,6 @@ class UserController extends GetxController {
   }
 
   Future<String?> readUserName() async {
-    UserRepository userRepository = UserRepository();
     final uid = FirebaseAuth.instance.currentUser?.uid;
     String userName = '';
     try {
@@ -65,7 +64,6 @@ class UserController extends GetxController {
         } else {
           userName = '게스트';
         }
-        print(userName);
       });
     } catch (e) {
       print(e);

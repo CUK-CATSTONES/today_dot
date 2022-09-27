@@ -16,7 +16,7 @@ class LicenseScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(13.0),
             child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.close,
                 size: 28,
               ),
@@ -34,7 +34,7 @@ class LicenseScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(20, 10, 10, 0),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 10, 0),
                   child: Text(
                     '''
 MIT License

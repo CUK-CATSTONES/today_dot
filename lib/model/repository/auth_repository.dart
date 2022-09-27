@@ -31,7 +31,6 @@ class AuthRepository {
         password: pwd,
       );
     } on FirebaseAuthException catch (e) {
-      print('firebase exception: ${e.toString()}');
       switch (e.code) {
         case 'invalid-email':
           return Status.invalidEmail;

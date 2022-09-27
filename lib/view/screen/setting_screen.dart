@@ -41,7 +41,7 @@ class SettingScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(10.r, 8.r, 0.r, 0.r),
+              padding: EdgeInsets.fromLTRB(10.r, 8.r, 0.r, 8.r),
               width: 343.w,
               height: 123.h,
               // color: Colors.black,

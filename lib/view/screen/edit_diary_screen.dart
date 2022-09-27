@@ -64,10 +64,10 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                   'emoji': editcontroller.emoji,
                   'content': editcontroller.content,
                 };
-                print(map);
                 editcontroller.addDiaryToDB(map);
-              } else
+              } else {
                 null;
+              }
             },
             style: TextButton.styleFrom(
               textStyle: TextStyle(
@@ -127,8 +127,6 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                             emojiList.length,
                             (index) => InkWell(
                               onTap: () {
-                                print(emojiList[index]);
-                                print('index: $index');
                                 setState(() {
                                   isClicked = true;
                                   pickEmojiIndex = index;
@@ -175,7 +173,6 @@ class _EditDiaryScreenState extends State<EditDiaryScreen> {
                               isVisible = false;
                             });
                           }
-                          print(isVisible);
                         },
                         fieldTitle: '',
                         maxLine: 10,

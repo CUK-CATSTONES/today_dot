@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:today_dot/model/asset/status.dart';
 import 'package:today_dot/view/screen/change_name_screen.dart';
 import 'package:today_dot/view/screen/edit_diary_screen.dart';
 import 'package:today_dot/view/screen/home_screen.dart';
@@ -20,14 +19,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    Status authStatus;
     if (user == null) {
-      authStatus = Status.signOut;
-      print('User is currently signed out!');
-    } else {
-      authStatus = Status.signIn;
-      print('User is signed in!');
-    }
+    } else {}
   });
   runApp(const MyApp());
 }
@@ -43,6 +36,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
           initialRoute: '/',
           getPages: [
             GetPage(name: '/', page: () => const SignInScreen()),
@@ -63,15 +57,18 @@ class MyApp extends StatelessWidget {
           ],
           locale: const Locale('ko'),
           theme: ThemeData(
-              primaryColor: const Color(0xff92B4EC),
-              inputDecorationTheme: const InputDecorationTheme(
-                border: OutlineInputBorder(),
+            primaryColor: const Color(0xff92B4EC),
+            inputDecorationTheme: const InputDecorationTheme(
+              border: OutlineInputBorder(),
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                primary: const Color(0xff92B4EC),
+                onSurface: const Color(0xff92B4EC),
+                textStyle: const TextStyle(color: Colors.black),
               ),
-              elevatedButtonTheme: ElevatedButtonThemeData(
-                  style: ElevatedButton.styleFrom(
-                      primary: const Color(0xff92B4EC),
-                      onSurface: const Color(0xff92B4EC),
-                      textStyle: const TextStyle(color: Colors.black)))),
+            ),
+          ),
         );
       },
     );
