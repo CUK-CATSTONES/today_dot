@@ -7,6 +7,13 @@ class SignInController extends GetxController {
   late String email;
   late String pw;
 
+  Status status = Status.signOut;
+
+  Future<void> setStatus(Status status) async {
+    this.status = status;
+    update();
+  }
+
   Future signIn(Map<String, dynamic> map) async {
     print('signIn map email: ${map['email']}');
     print('signIn map pw: ${map['pw']}');
@@ -24,16 +31,24 @@ class SignInController extends GetxController {
         print('signIn controller result:: $value');
         switch (value) {
           case Status.signIn:
+            status = Status.signIn;
             Get.back();
             Get.offAllNamed('/home');
+            print('Status.signIn: $status');
             break;
           case Status.userNotFound:
+            status = Status.signOut;
             Get.back();
             Get.snackbar('사용자 정보 없음', '입력한 정보를 다시 확인해주세요');
+            print('Status.signOut: $status');
+
             break;
           default:
+            status = Status.signOut;
             Get.back();
             Get.snackbar('로그인 불가', '로그인을 할 수 없습니다');
+            print('Status.signOut: $status');
+
             break;
         }
       },

@@ -79,14 +79,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           TextSpan(
                             text: '지금 당신의 ',
                             style: TextStyle(
-                              fontSize: 23.sp,
+                              fontSize: 22.sp,
                               fontFamily: 'cafe24',
                             ),
                           ),
                           TextSpan(
                             text: '마침표',
                             style: TextStyle(
-                              fontSize: 23.sp,
+                              fontSize: 22.sp,
                               fontFamily: 'cafe24',
                               fontWeight: FontWeight.bold,
                             ),
@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           TextSpan(
                             text: '는 어떤가요?',
                             style: TextStyle(
-                              fontSize: 23.sp,
+                              fontSize: 22.sp,
                               fontFamily: 'cafe24',
                             ),
                           ),

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:today_dot/model/asset/status.dart';
 import 'package:today_dot/view/screen/change_name_screen.dart';
 import 'package:today_dot/view/screen/edit_diary_screen.dart';
 import 'package:today_dot/view/screen/home_screen.dart';
@@ -9,6 +10,8 @@ import 'package:today_dot/view/screen/setting_screen.dart';
 import 'package:today_dot/view/screen/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:today_dot/view/screen/sign_up_screen.dart';
+import 'package:today_dot/view/screen/splash_screen.dart';
+import 'package:today_dot/view_model/sign_in_controller.dart';
 import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,10 +21,21 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    if (user == null) {
-    } else {}
-  });
+
+  final _signController = Get.put(SignInController());
+
+  // FirebaseAuth.instance.authStateChanges().listen((User? user) async {
+  //   Status status = Status.signOut;
+  //   if (user == null) {
+  //     status = Status.signOut;
+  //     print('signOut');
+  //   } else {
+  //     status = Status.signIn;
+  //     print('signIn');
+  //   }
+  //   print('user::::: $user');
+  //   await _signController.setStatus(status);
+  // });
   runApp(const MyApp());
 }
 
@@ -37,9 +51,10 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: '/',
+          initialRoute: '/splash',
           getPages: [
-            GetPage(name: '/', page: () => const SignInScreen()),
+            GetPage(name: '/splash', page: () => const SplashScreen()),
+            GetPage(name: '/signIn', page: () => const SignInScreen()),
             GetPage(name: '/signUp', page: () => const SignUpScreen()),
             GetPage(name: '/home', page: () => const HomeScreen()),
             GetPage(name: '/setting', page: () => const SettingScreen()),
