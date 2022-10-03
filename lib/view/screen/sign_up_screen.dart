@@ -34,6 +34,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xffFFFDF9),
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Get.offAllNamed('/signIn');
+          },
+          color: Colors.black,
+        ),
       ),
       body: Container(
         // height: double.infinity,
