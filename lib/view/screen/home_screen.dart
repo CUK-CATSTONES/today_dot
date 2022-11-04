@@ -115,11 +115,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (context, snapshot) {
                       List<ReadDiaryComponent> diaryContainers = [];
                       if (snapshot.hasError) {
-                        return Column(
-                          children: const [
-                            Text('알 수 없는 오류가 생겼어요.'),
-                            Text('관리자에게 문의 부탁드립니다.'),
-                          ],
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text('알 수 없는 오류가 생겼어요.'),
+                              Text('관리자에게 문의 부탁드립니다.'),
+                            ],
+                          ),
                         );
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
